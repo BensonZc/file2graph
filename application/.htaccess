@@ -1,0 +1,4 @@
+deny from all
+
+AddType text/css .css
+

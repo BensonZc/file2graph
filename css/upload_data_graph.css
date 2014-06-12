@@ -1,0 +1,175 @@
+h3,ul{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;
+}
+  
+.header{
+	width:100%;
+	height:15%;
+}
+
+.header_icon{
+	float:left;
+	width:20%;
+	margin-left:2%;
+	height:100%;
+}
+
+.header_content{
+	float:left;
+	width:75%;
+	height:100%;
+}
+
+.header_content p{
+	float:left;
+	overflow:hidden;
+	height:65px;
+	padding-left:20px;
+	font-size: 1.2em;
+	color: #333;
+	line-height: 1.8em;
+}
+
+
+.header_icon h1{
+	font-size:2.5em;
+	text-align:center;
+}
+
+.header h1 a {
+	text-decoration: none;
+	padding: 2px 7px;
+	display: block;
+	color: #333;
+	font-weight:800;
+	overflow:hidden;
+}
+
+
+.content{
+	width:100%;
+	height:85%;
+	margin-top:1%;
+}
+
+.stepthree{
+	text-align:center;
+	margin-top:2%;
+	width: 20%;
+	float: left;
+	margin-left: 2%;
+	transition:0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	-o-border-radius:4px;
+	border-radius:4px;
+}
+
+.stepthree a{
+	background:#489EAB;
+	padding: 0.6em 1em;
+	display: block;
+	color: #FFF;
+	font-size: 1.8em;
+	transition: 0.5s all;
+	-webkit-transition: 0.5s all;
+	-moz-transition: 0.5s all;
+	-o-transition: 0.5s all;
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+	-o-border-top-right-radius: 3px;
+	-moz-border-top-right-radius: 3px;
+	-webkit-top-left-radius:3px;
+	-moz-border-top-left-radius:3px;
+	-o-border-top-left-radius: 3px;
+	-webkit-border-top-left-radius: 3px;
+}
+
+.stepthree a:hover{
+	background: #1F7986;
+	text-decoration:none;
+}
+
+.title{
+	background: #E9EEF2;
+	padding: 0.9em 0 0 0;
+}
+
+.title p{
+	font-size: 1.3em;
+	color: #333;
+	text-align: center;
+	line-height: 1.8em;
+	margin: 0 auto;
+	width: 80%;
+	font-weight: 600;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.stepthree ul{
+	background: #E9EEF2;
+	min-height:240px;
+	min-height:297px;
+	height:auto;
+	list-style-type:none;
+}
+
+.stepthree ul li p{
+	color:#485460;
+	text-align:left;
+	font-size: 1.2em;
+	display: block;
+	padding:0.4em 0em;
+	transition:0.5s all;
+	-webkit-transition:0.5s all;
+	-moz-transition:0.5s all;
+	-o-transition:0.5s all;
+	line-height: 1.8em;
+	margin: 0 auto;
+	width: 80%;
+	font-weight: 600;
+	overflow:hidden;
+}
+
+/*menu*/
+ul,li {list-style-type:none; text-transform:capitalize;}
+.clear {clear:both; *display:inline;/*IE only*/}
+#graph{
+	float:left;
+	margin-left: 20px;
+	margin-top: 2%;
+	overflow-x:auto;
+}
+
+#nav 
+{width:1410px; display:block;height:37px;z-index:10; position:absolute;}
+#nav .file2graph_out 
+{float:left;border-bottom:4px solid rgb(232,232,232);line-height:32px;display:block; border-right:1px solid #fff;text-align:center; color:#3174c7;background:rgb(246,246,246);}
+#nav .file2graph_out .smile 
+{padding-left:1em;}
+#nav .file2graph_inner 
+{margin-left:16px;}
+#nav .file2graph 
+{margin-right:1px;padding:0 2em;}
+#nav .mainlevel 
+{background:rgb(246,246,246);float:left; border-right:1px solid #fff; width:200px;border-radius: 3px;/*IE6 only*/}
+#nav .mainlevel a 
+{color:#000; text-decoration:none; line-height:32px; display:block; text-align:center; border-bottom:4px solid rgb(232,232,232);}
+#nav .mainlevel a:hover 
+{color:#fff; text-decoration:none; background:rgb(231,231,231);border-bottom:4px solid #489EAB;}
+#nav .mainlevel ul 
+{display:none; position:absolute;}
+#nav .mainlevel li 
+{border-top:1px solid #fff; background:rgb(246,246,246); width:200px;/*IE6 only*/}
+.log 
+{text-align:center; color:skyblue; line-height:24px; text-transform:capitalize; margin:50px auto;}
