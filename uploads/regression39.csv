@@ -1,9 +1,0 @@
-Part,Build,Total cases,Skiped cases,Passed cases,Failed cases
-Android_Phone_RC610_Regression_Part1,48,70,3,64,3
-Android_Phone_RC610_Regression_Part2,37,69,1,66,2
-Android_Phone_RC610_Regression_Part3,32,49,0,46,3
-Android_Phone_RC610_Regression_Part4,33,62,0,59,3
-Android_Phone_RC610_Regression_Part5,33,63,0,62,1
-Android_Phone_RC610_Regression_Part6,38,57,1,52,4
-Android_Phone_RC610_Regression_Part7,32,75,0,64,11
-Android_Phone_RC610_Regression_Part8,32,48,1,42,5
