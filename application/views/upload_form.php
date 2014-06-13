@@ -1,4 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<?php
+    session_start();
+    $t=mktime();
+    $this->session->set_userdata('conn_id', $t);
+	$this->session->set_userdata('conn', $t);
+	//echo "connid " . $this->session->userdata('conn_id');
+	//echo "conn " . $this->session->userdata('conn');
+?>
 <html>
 <head>
 <title>File2Graph</title>
@@ -107,6 +115,7 @@ $(document).ready(function() {
 				<?php echo $error;?>
 				<?php echo form_open_multipart('upload/do_upload');?>
 					<div class="col_1_of_1 span_1_of_1">
+						<input type="hidden" name="hidden" id="hidden" value="<?php echo $this->session->userdata('conn_id')?>">
 						<h3>Start uploading file(csv,excel...)</h3>
 						<p>If you not know how to use it.please read <a href="#htui" class="scroll">How to user it</a> 
 						content first.or please 

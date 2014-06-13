@@ -7,6 +7,7 @@ class Upload extends CI_Controller {
             parent::__construct();
             $this->load->helper(array('form', 'url'));
             $this->load->model('commondata');
+			$this->load->library('session');
         }
  
         function index(){ 
@@ -14,19 +15,24 @@ class Upload extends CI_Controller {
         }
 
         function do_upload(){
-                $config['upload_path'] = './uploads/';
+				$hide = $this->input->post('hidden');
+                //echo "connid " . $hide;
+				//echo "conn " . $this->session->userdata('conn');
+				
+				$config['upload_path'] = './uploads/';
                 $config['allowed_types'] = 'csv|txt';
                 $config['max_size'] = '0';
                 $config['max_width']  = '0';
                 $config['max_height']  = '0';
-  
+				
+				
                 $this->load->library('upload', $config);
- 
+				
                 if (!$this->upload->do_upload()){
                         $error = array('error' => $this->upload->display_errors());
                         $this->load->view('upload_form', $error);
-                } else{
-                        /**
+                } else if($hide == $this->session->userdata('conn')){
+						/**
                         upload data array
                         [file_name] upload file name
                         [file_type] upload file type
@@ -80,7 +86,10 @@ class Upload extends CI_Controller {
                         
                         $upload_file_data = array('upload_data' => $statementList, 'table_name' => $tablename, 'horizontal' => $horizontal, 'vertical' => $vertical, 'upload_file_name' => $upload_data['file_name']);
                         $this->load->view('upload_data_select', $upload_file_data);
-                }
+                } else{
+					echo "<script>alert('please do not refresh repeat.');</script>";
+				}
+			$this->session->sess_destroy();
         } 
 }
 ?>
