@@ -8,7 +8,7 @@ $(function(){
       // if the nav menu and nav button are both visible,
       // then the responsive nav transitioned from open to non-responsive, then back again.
       // re-hide the nav menu and remove the hidden class
-      $('#topnav nav').hide().removeAttr('class');
+	  $('#topnav nav').hide().removeAttr('class');
     }
     if(nb.is(':hidden') && n.is(':hidden') && $(window).width() > 569) {
       // if the navigation menu and nav button are both hidden,

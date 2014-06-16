@@ -115,7 +115,7 @@ img { border: 0; max-width: 100%; }
   display: block;
   color: #333;
   font-size: 2.5em;
-  font-weight:400;
+  font-weight:400;  
 }
 
 #topnav #navbtn {
@@ -192,7 +192,7 @@ img { border: 0; max-width: 100%; }
 
 
 /* responsive styles */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1100px) {
   h2 { font-size: 2.2em; }
   p { font-size: 1.45em; line-height: 1.55em; }
   #topnav h1 {
