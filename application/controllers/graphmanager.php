@@ -140,8 +140,6 @@ class GraphManager extends CI_Controller {
 		$querydata['rows'] = $rows;
 		$querydata['isuserdefine'] = $is_user_define;
 		$querydata['filedata'] = $filedata;
-		$querydata['json'] = $this->commondata->get_json_data($tablename);
-		$querydata['array'] = $this->commondata->get_array_data();
 		
 		$this->highcharts->setTitleText('this is text');
 		$this->highcharts->setTitleX(-20);
