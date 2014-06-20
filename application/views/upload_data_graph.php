@@ -81,6 +81,9 @@
     </script>
 	</head>
 	<body>
+		
+		<div><?php echo $test ?></div>
+		
 		<div class="header">
 			<div class="header_icon">
 				<h1>

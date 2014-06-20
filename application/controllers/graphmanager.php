@@ -8,6 +8,7 @@ class GraphManager extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('commondata');
 		$this->load->library('initgraphdata');
+		$this->load->library('highcharts');
 	}
 	
 	function new_graph(){
@@ -138,6 +139,15 @@ class GraphManager extends CI_Controller {
 		$querydata['filed'] = $filed;
 		$querydata['rows'] = $rows;
 		$querydata['isuserdefine'] = $is_user_define;
+		$querydata['filedata'] = $filedata;
+		$querydata['json'] = $this->commondata->get_json_data($tablename);
+		$querydata['array'] = $this->commondata->get_array_data();
+		
+		$this->highcharts->setTitleText('this is text');
+		$this->highcharts->setTitleX(-20);
+		
+		$querydata['test'] = "test: " . $this->highcharts->generate();
+		
 		$this->load->view('upload_data_graph', $querydata);
 	}
 
