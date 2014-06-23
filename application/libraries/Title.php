@@ -1,17 +1,17 @@
 <?php
 class Title{
-	var $title_array = array();
+	var $title_array;
 	
 	public function __construct(){
-		
+		$title_array = array();
 	}
 	
 	public function setText($value){
-		$this->title_array['text'] = $value;
+		$this->title_array['title']['text'] = $value;
 	}
 	
 	public function setX($value){
-		$this->title_array['x'] = $value;
+		$this->title_array['title']['x'] = $value;
 	}
 	
 	public function getTitle(){

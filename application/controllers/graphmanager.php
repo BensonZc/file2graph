@@ -95,13 +95,6 @@ class GraphManager extends CI_Controller {
 			$chart_y = $series;
 		}else if($is_user_define == 'false'){
 			/*
-			1.get all data from DB.
-			2.set chart x.
-			3.set chart y.
-			*/
-			$result_array = $this->commondata->get_all_data($tablename);
-			
-			/*
 			get fileds from table
 			[tablefields] database table fields for chart
 			*/
@@ -141,8 +134,9 @@ class GraphManager extends CI_Controller {
 		$querydata['isuserdefine'] = $is_user_define;
 		$querydata['filedata'] = $filedata;
 		
-		$this->highcharts->setTitleText('this is text');
-		$this->highcharts->setTitleX(-20);
+		/*set highchart property*/
+		//$this->highcharts->setTitleText('this is test');
+		$this->highcharts->setSeriesData($filedata);
 		
 		$querydata['test'] = "test: " . $this->highcharts->generate();
 		
