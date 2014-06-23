@@ -23,7 +23,7 @@ class Legend{
 	}
 	
 	public function getLegend(){
-		return json_encode($this->legend_array);
+		return $this->legend_array;
 	}
 }
 ?>

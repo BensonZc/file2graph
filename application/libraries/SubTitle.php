@@ -7,15 +7,15 @@ class SubTitle{
 	}
 	
 	public function setText($value){
-		$this->title_array['subtitle']['text'] = $value;
+		$this->sub_title_array['subtitle']['text'] = $value;
 	}
 	
 	public function setX($value){
-		$this->title_array['subtitle']['x'] = $value;
+		$this->sub_title_array['subtitle']['x'] = $value;
 	}
 	
 	public function getSubTitle(){
-		return json_encode($this->sub_title_array);
+		return $this->sub_title_array;
 	}
 }
 ?>

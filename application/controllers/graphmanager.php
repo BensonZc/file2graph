@@ -136,9 +136,21 @@ class GraphManager extends CI_Controller {
 		
 		/*set highchart property*/
 		//$this->highcharts->setTitleText('this is test');
+		$this->highcharts->setTitleText('Monthly Average Temperature');
+		$this->highcharts->setTitleX(-20);
+		$this->highcharts->setSubTitleText('Source:WorldClimate.com');
+		$this->highcharts->setSubTitleX(-20);
+		array_shift($tablefields);
+		$this->highcharts->setXAxisCategories($tablefields);
+		$this->highcharts->setYAxisTitleText('Temperature(°C)');
+		$this->highcharts->setToolTipValueSuffix('°C');
+		$this->highcharts->setLegendLayout('vertical');
+		$this->highcharts->setLegendAlign('right');
+		$this->highcharts->setLegendVerticalAlign('middle');
+		$this->highcharts->setLegendBorderWidth(0);
 		$this->highcharts->setSeriesData($filedata);
 		
-		$querydata['test'] = "test: " . $this->highcharts->generate();
+		$querydata['test'] = $this->highcharts->generate('container');
 		
 		$this->load->view('upload_data_graph', $querydata);
 	}

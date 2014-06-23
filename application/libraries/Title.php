@@ -15,7 +15,7 @@ class Title{
 	}
 	
 	public function getTitle(){
-		return json_encode($this->title_array);
+		return $this->title_array;
 	}
 }
 ?>

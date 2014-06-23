@@ -11,7 +11,7 @@ class ToolTip{
 	}
 	
 	public function getToolTip(){
-		return json_encode($this->tooltip_array);
+		return $this->tooltip_array;
 	}
 }
 ?>

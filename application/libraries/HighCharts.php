@@ -62,8 +62,19 @@ class HighCharts{
 		$this->CI->title->setX($value);
 	}
 	
-	public function generate(){
-		return $this->CI->series->getSeries();
+	public function generate($divid){
+		$title_array = $this->CI->title->getTitle();
+		$subtitle_array = $this->CI->subtitle->getSubTitle();
+		$xAxis_array = $this->CI->xaxis->getXAxis();
+		$yAxis_array = $this->CI->yaxis->getYAxis();
+		$toolTip_array = $this->CI->tooltip->getToolTip();
+		$legend_array = $this->CI->legend->getLegend();
+		$series_array = $this->CI->series->getSeries();
+		
+		$highchart = array_merge($title_array, $subtitle_array, $xAxis_array, $yAxis_array, 
+			$toolTip_array, $legend_array, $series_array);
+		
+		return "$('#" . $divid . "').highcharts(" . json_encode($highchart) . ")";
 	}
 }
 ?>

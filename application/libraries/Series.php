@@ -24,7 +24,7 @@ class Series{
 	}
 	
 	public function getSeries(){
-		return json_encode($this->series_array);
+		return $this->series_array;
 	}
 }
 ?>

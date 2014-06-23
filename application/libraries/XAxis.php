@@ -12,7 +12,7 @@ class XAxis{
 	}
 	
 	public function getXAxis(){
-		return json_encode($this->xaxis_array);
+		return $this->xaxis_array;
 	}
 }
 ?>

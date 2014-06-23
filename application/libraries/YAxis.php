@@ -12,7 +12,7 @@ class YAxis{
 	}
 	
 	public function getYAxis(){
-		return json_encode($this->yaxis_array);
+		return $this->yaxis_array;
 	}
 }
 ?>
