@@ -15,7 +15,11 @@ class Title{
 	}
 	
 	public function getTitle(){
-		return $this->title_array;
+		if(empty($this->title_array)){
+			return array();
+		}else{
+			return $this->title_array;
+		}
 	}
 }
 ?>

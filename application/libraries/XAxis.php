@@ -12,7 +12,11 @@ class XAxis{
 	}
 	
 	public function getXAxis(){
-		return $this->xaxis_array;
+		if(empty($this->xaxis_array)){
+			return array();
+		}else{
+			return $this->xaxis_array;
+		}
 	}
 }
 ?>

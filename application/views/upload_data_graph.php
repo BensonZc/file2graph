@@ -20,69 +20,34 @@
 		$(window).load(function(){
 			//click sub item to change chart
 			$("#sub_01 li a").click(function(){
-				var url = $(this).attr('id').replace("3", "Three");
-				var data = {tablename:"<?php echo $tablename?>",
+				var controller = $(this).attr('id').replace("3", "Three").toLocaleLowerCase();
+				var method = $(this).attr('id').replace("3", "Three");
+				var data = {
+					tablename:"<?php echo $tablename?>",
 					isuserdefine:"<?php echo $isuserdefine?>",
 					filed:"<?php echo $filed?>",
 					rows:"<?php echo $rows?>"};  
 			
 					$.ajax({  
-					type : "POST",  
-					async : false,  
-					url : url,  
-					data : data,  
-					timeout:1000,  
+					type : "POST", 
+					async : false,
+					url : '../' + controller + '/' + method,
+					data : data, 
+					timeout:1000,
 					success:function(dates){  
 						$("#maincontainer").html(dates);
 					},  
 					error: function(e) {  
-						alert(url);  
+						alert('../' + controller + '/' + method);  
 					}  
-					});  
-				});
-		
-			//Basic Line
-			$('#maincontainer').highcharts({
-				title: {
-					text: '<?php echo $tablename ?> Basic Line Chart',
-					x: -20 //center
-				},
-				subtitle: {
-					text: 'Source: <?php echo $tablename ?>',
-					x: -20
-				},
-				xAxis: {
-					categories: [<?php echo $chart_x ?>]
-				},
-				yAxis: {
-					title: {
-						text: 'y(description)'
-					},
-					plotLines: [{
-						value: 0,
-						width: 1,
-						color: '#808080'
-					}]
-				},
-				tooltip: {
-					valueSuffix: ''
-				},
-				legend:{
-					//layout: 'vertical',
-					//align: 'bottom',
-					verticalAlign: 'bottom',
-					borderWidth: 0
-				},
-				series: [<?php echo $chart_y ?>]
+				});  
 			});
 		});
-    
-
-    </script>
+		</script>
 	</head>
 	<body>
 		
-		<div><?php echo $test ?></div>
+		<!--<div><?php echo $highchart ?></div>-->
 		
 		<div class="header">
 			<div class="header_icon">
@@ -111,15 +76,6 @@
 			
 			<div id="graph">
 				<ul id="nav">
-					<!--
-					<li class="file2graph_out">
-						<div class="file2graph_inner">
-							<div class="file2graph">
-								<span class="text">let'file2graph</span><span class="smile"></span>
-							</div>
-						</div>
-					</li>
-					-->
 					<?php foreach($sliderbar as $sliderbar_key => $sliderbar_value): ?>
 						<li class="mainlevel" id="mainlevel_01"><a href="javascript:void(0);" target="_blank"><?php echo $sliderbar_key ?></a>
 							<ul id="sub_01">
@@ -135,6 +91,8 @@
 				</ul>
 				<div id="maincontainer" style="width:1410px;height:400px;z-index:5;margin-top:3%">
 				</div>
+				<!--Basic Line-->
+				<script type="text/javascript"><?php echo $basicline ?></script>
 			</div>
 		</div>
 	</body>

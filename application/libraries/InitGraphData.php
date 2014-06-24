@@ -1,44 +1,28 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 class InitGraphData{
+	function __construct(){
+		$this->CI =& get_instance();
+		
+		$this->CI->load->library('highcharts');
+	}
 	
-	public function initBasicData($name, $fields, $data){
-		$returnData = array();
-		$chart_x = "";
-		$chart_y = "";
-		$series_data = "";
-		$series_name = "";
-		$series = "";
+	public function initBasicData($name, $fields, $data, $divid){
+		/*set highchart property*/
+		$this->highcharts->title->setText($name . " Basic Line Chart");
+		$this->highcharts->title->setX(-20);
+		$this->highcharts->subtitle->setText('Source: ' . $name);
+		$this->highcharts->subtitle->setX(-20);
+		array_shift($fields);
+		$this->highcharts->xaxis->setCategories($fields);
+		$this->highcharts->yaxis->setTitleText('');
+		$this->highcharts->tooltip->setValueSuffix('');
+		$this->highcharts->legend->setLayout('vertical');
+		$this->highcharts->legend->setAlign('right');
+		$this->highcharts->legend->setVerticalAlign('middle');
+		$this->highcharts->legend->setBorderWidth(0);
+		$this->highcharts->series->setData($data);
 		
-		/*
-		init X data.
-		[fields] database table fields for chart
-		*/
-		for($i=0;$i<count($fields);$i++){
-			if($i==0){
-			}else{
-				$chart_x = $chart_x . "'" . $fields[$i] . "',";
-			}
-		}
-		
-		/*
-		init Y data.
-		*/
-		foreach($data as $data_items){
-			$series_value = "";
-			for($i=0;$i<count($fields);$i++){
-				if($i==0){
-					$series_name = "{ name: '" . $data_items[$fields[$i]] . "',";
-				}else{
-					$series_value = $series_value . $data_items[$fields[$i]] . ",";					
-				}
-				$series_data = "data: [" . $series_value . "] },";
-			}
-			$series = $series . $series_name . $series_data;
-		}
-		$chart_y = $series;
-		
-		$returnData['chart_x'] = rtrim($chart_x, ",");
-		$returnData['chart_y'] = rtrim($chart_y, ",");
+		$returnData = $this->CI->highcharts->generate($divid);
 		return $returnData;
 	}
 	

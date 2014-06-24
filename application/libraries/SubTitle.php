@@ -15,7 +15,11 @@ class SubTitle{
 	}
 	
 	public function getSubTitle(){
-		return $this->sub_title_array;
+		if(empty($this->sub_title_array)){
+			return array();
+		}else{
+			return $this->sub_title_array;
+		}
 	}
 }
 ?>

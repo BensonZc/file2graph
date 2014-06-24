@@ -5,21 +5,15 @@ class GraphManager extends CI_Controller {
  
 	function __construct(){
 		parent::__construct();
-		$this->load->helper(array('form', 'url'));
 		$this->load->model('commondata');
 		$this->load->library('initgraphdata');
-		$this->load->library('highcharts');
 	}
 	
 	function new_graph(){
 		$tablename = $this->input->post('table_name');
 		$is_user_define = $this->input->post('isuserdefine');
-		$result_array = array();
-		$series_name = "";
-		$series_data = "";
-		$series = "";
-		$chart_x = "";
-		$chart_y = "";
+		$tabledata = array();
+
 		$filed = "";
 		$rows = "";
 		
@@ -59,118 +53,48 @@ class GraphManager extends CI_Controller {
 			);
 		
 		if($is_user_define == 'true'){
-			/*
-			1.create a sql query.
-			2.get data by sql.
-			3.return result data array.
-			4.set chart x.
-			5.set chart y.
-			*/
+			//filed and rows is user defined.
 			$filed = $this->input->post('filed');
 			$rows = $this->input->post('rows');
 			
+			//get table fields via user defined.
 			$tablefields = explode(',', $filed);
+			
+			//get data via sql.
 			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
-			$result_array = $this->commondata->get_table_sql($sql);
-			
-			for($i=0;$i<count($tablefields);$i++){
-				if($i==0){
-				}else{
-					$chart_x = $chart_x . "'" . $tablefields[$i] . "',";
-				}
-			}
-			
-			foreach($result_array as $result_array_items){
-				$series_value = "";
-				for($i=0;$i<count($tablefields);$i++){
-					if($i==0){
-						$series_name = "{ name: '" . $result_array_items[$tablefields[$i]] . "',";
-					}else{
-						$series_value = $series_value . $result_array_items[$tablefields[$i]] . ",";					
-					}
-					$series_data = "data: [" . $series_value . "] },";
-				}
-				$series = $series . $series_name . $series_data;
-			}
-			$chart_y = $series;
+			$tabledata = $this->commondata->get_table_sql($sql);
 		}else if($is_user_define == 'false'){
-			/*
-			get fileds from table
-			[tablefields] database table fields for chart
-			*/
+			//get all table fields.
 			$tablefields = $this->commondata->get_table_fields($tablename);
-			for($i=0;$i<count($tablefields);$i++){
-				if($i==0){
-				}else{
-					$chart_x = $chart_x . "'" . $tablefields[$i] . "',";
-				}
-			}
 			
-			/*
-			get all data
-			*/
-			$filedata = $this->commondata->get_all_data($tablename);
-			foreach($filedata as $filedata_items){
-				$series_value = "";
-				for($i=0;$i<count($tablefields);$i++){
-					if($i==0){
-						$series_name = "{ name: '" . $filedata_items[$tablefields[$i]] . "',";
-					}else{
-						$series_value = $series_value . $filedata_items[$tablefields[$i]] . ",";					
-					}
-					$series_data = "data: [" . $series_value . "] },";
-				}
-				$series = $series . $series_name . $series_data;
-			}
-			$chart_y = $series;
+			//get all data.
+			$tabledata = $this->commondata->get_all_data($tablename);
 		}
 		
-		$querydata['chart_x'] = rtrim($chart_x, ",");
-		$querydata['chart_y'] = rtrim($chart_y, ",");
+		
 		$querydata['sliderbar'] = $sliderbar;
 		$querydata['tablename'] = $tablename;
 		$querydata['filed'] = $filed;
 		$querydata['rows'] = $rows;
 		$querydata['isuserdefine'] = $is_user_define;
-		$querydata['filedata'] = $filedata;
 		
-		/*set highchart property*/
-		//$this->highcharts->setTitleText('this is test');
-		$this->highcharts->setTitleText('Monthly Average Temperature');
-		$this->highcharts->setTitleX(-20);
-		$this->highcharts->setSubTitleText('Source:WorldClimate.com');
-		$this->highcharts->setSubTitleX(-20);
+		$this->highcharts->title->setText($tablename . " Basic Line Chart");
+		$this->highcharts->title->setX(-20);
+		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$this->highcharts->subtitle->setX(-20);
 		array_shift($tablefields);
-		$this->highcharts->setXAxisCategories($tablefields);
-		$this->highcharts->setYAxisTitleText('Temperature(°C)');
-		$this->highcharts->setToolTipValueSuffix('°C');
-		$this->highcharts->setLegendLayout('vertical');
-		$this->highcharts->setLegendAlign('right');
-		$this->highcharts->setLegendVerticalAlign('middle');
-		$this->highcharts->setLegendBorderWidth(0);
-		$this->highcharts->setSeriesData($filedata);
+		$this->highcharts->xaxis->setCategories($tablefields);
+		$this->highcharts->yaxis->setTitleText('');
+		$this->highcharts->tooltip->setValueSuffix('');
+		$this->highcharts->legend->setLayout('vertical');
+		$this->highcharts->legend->setAlign('right');
+		$this->highcharts->legend->setVerticalAlign('middle');
+		$this->highcharts->legend->setBorderWidth(0);
+		$this->highcharts->series->setSeries($tabledata);
 		
-		$querydata['test'] = $this->highcharts->generate('container');
+		$querydata['basicline'] = $this->highcharts->generate('maincontainer');
 		
 		$this->load->view('upload_data_graph', $querydata);
-	}
-
-	//Basic Line Chart
-	function Basicline(){	
-		$graphdata = $this->commonChart();
-		$this->load->view('LineCharts/BasicLine', $graphdata);
-	}
-	
-	//Compare Line Chart
-	function Compareline(){	
-		$graphdata = $this->commonChart();
-		$this->load->view('LineCharts/CompareLine', $graphdata);
-	}
-	
-	//Basic Area Chart
-	function BasicArea(){	
-		$graphdata = $this->commonChart();
-		$this->load->view('AreaCharts/BasicArea', $graphdata);
 	}
 	
 	//Stacked Area Chart
@@ -450,6 +374,7 @@ class GraphManager extends CI_Controller {
 		$isuserdefine = $this->input->post('isuserdefine');
 		$graphdata = array();
 		
+		//prepare highchart data.
 		if($isuserdefine == 'true'){
 			$filed = $this->input->post('filed');
 			$rows = $this->input->post('rows');
@@ -468,9 +393,10 @@ class GraphManager extends CI_Controller {
 			//table data
 			$tabledata = $this->commondata->get_all_data($tablename);
 		}
-		$graphdata = $this->initgraphdata->initBasicData($tablename, $tablefields, $tabledata);
-		$graphdata['tablename'] = $tablename;
 		
+		$graphdata['tablename'] = $tablename;
+		$graphdata['highchart'] = $this->initgraphdata->initBasicData($tablename, $tablefields, $tabledata, 'container');
+
 		return $graphdata;
 	}
 }

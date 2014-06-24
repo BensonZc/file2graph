@@ -11,11 +11,11 @@ class Series{
 		
 		foreach($data as $data_key => $data_item){
 			$series_data = array();
+			$first_column = array_shift($data_item);
 			
-			$this->series_array['series'][$data_key]['name'] = $data_item['Column0'];
+			$this->series_array['series'][$data_key]['name'] = $first_column;
 			
 			//delete first element.
-			array_shift($data_item);
 			foreach($data_item as $data_value){
 				array_push($series_data, floatval($data_value));
 			}
@@ -24,7 +24,11 @@ class Series{
 	}
 	
 	public function getSeries(){
-		return $this->series_array;
+		if(empty($this->series_array)){
+			return array();
+		}else{
+			return $this->series_array;
+		}
 	}
 }
 ?>

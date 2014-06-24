@@ -23,7 +23,11 @@ class Legend{
 	}
 	
 	public function getLegend(){
-		return $this->legend_array;
+		if(empty($this->legend_array)){
+			return array();
+		}else{
+			return $this->legend_array;
+		}
 	}
 }
 ?>
