@@ -77,6 +77,34 @@ class ToolTip{
 		$this->tooltip_array['tooltip']['pointFormat'] = $value;
 	}
 	
+	/*
+	headerFormat: String
+	The HTML of the tooltip header line. Variables are enclosed by curly brackets. Available variables	 are point.key, series.name, series.color and other members from the point and series objects. The point.key variable contains the category name, x value or datetime string depending on the type of axis. For datetime axes, the point.key date format can be set using tooltip.xDateFormat.
+
+	Defaults to <span style="font-size: 10px">{point.key}</span><br/>
+	*/
+	public function setHeaderFormat($value){
+		$this->tooltip_array['tooltip']['headerFormat'] = $value;
+	}
+	
+	/*
+	footerFormat: String
+	A string to append to the tooltip format. 
+	Defaults to false.
+	*/
+	public function setFooterFormat($value){
+		$this->tooltip_array['tooltip']['footerFormat'] = $value;
+	}
+	
+	/*
+	useHTML: Boolean
+	Use HTML to render the contents of the tooltip instead of SVG. Using HTML allows advanced formatting like tables and images in the tooltip. It is also recommended for rtl languages as it works around rtl bugs in early Firefox. 
+	Defaults to false.
+	*/
+	public function setUseHTML($value){
+		$this->tooltip_array['tooltip']['useHTML'] = $value;
+	}
+	
 	public function getToolTip(){
 		if(empty($this->tooltip_array)){
 			return array();

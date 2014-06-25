@@ -27,7 +27,7 @@
 					isuserdefine:"<?php echo $isuserdefine?>",
 					filed:"<?php echo $filed?>",
 					rows:"<?php echo $rows?>"};  
-			
+					
 					$.ajax({  
 					type : "POST", 
 					async : false,
