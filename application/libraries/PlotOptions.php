@@ -58,6 +58,121 @@ class PlotOptions{
 		$this->plotoptions_array['plotOptions']['area']['marker']['states']['hover']['enabled'] = $value;
 	}
 	
+	/*
+	lineWidth: Number
+	The width of the point marker's outline. 
+	Defaults to 0.
+	*/
+	public function setAreaMarkerLineWidth($value){
+		$this->plotoptions_array['plotOptions']['area']['marker']['lineWidth'] = $value;
+	}
+	
+	/*
+	lineColor: Color
+	The color of the point marker's outline. When null, the series' or point's color is used. 
+	Defaults to #FFFFFF.
+	*/
+	public function setAreaMarkerLineColor($value){
+		$this->plotoptions_array['plotOptions']['area']['marker']['lineColor'] = $value;
+	}
+	
+	/*
+	stacking: String
+	Whether to stack the values of each series on top of each other. Possible values are null to disable, "normal" to stack by value or "percent".
+	*/
+	public function setAreaStacking($value){
+		$this->plotoptions_array['plotOptions']['area']['stacking'] = $value;
+	}
+	
+	/*
+	stacking: String
+	Whether to stack the values of each series on top of each other. Possible values are null to disable, "normal" to stack by value or "percent".
+	*/
+	public function setBarStacking($value){
+		$this->plotoptions_array['plotOptions']['bar']['stacking'] = $value;
+	}
+	
+	public function setColumnStacking($value){
+		$this->plotoptions_array['plotOptions']['column']['stacking'] = $value;
+	}
+	
+	public function setSeriesStacking($value){
+		$this->plotoptions_array['plotOptions']['series']['stacking'] = $value;
+	}
+	
+	/*
+	lineColor: Color
+	The color of the point marker's outline. When null, the series' or point's color is used. 
+	Defaults to #FFFFFF.
+	*/
+	public function setAreaLineColor($value){
+		$this->plotoptions_array['plotOptions']['area']['lineColor'] = $value;
+	}
+	
+	/*
+	lineWidth: Number
+	The width of the point marker's outline. 
+	Defaults to 0.
+	*/
+	public function setAreaLineWidth($value){
+		$this->plotoptions_array['plotOptions']['area']['lineWidth'] = $value;
+	}
+	
+	/*
+	enabled: Boolean
+	Enable or disable the data labels. 
+	Defaults to false.
+	*/
+	public function setBarDataLabelsEnabled($value){
+		$this->plotoptions_array['plotOptions']['bar']['dataLabels']['enabled'] = $value;
+	}
+	
+	/*
+	enabled: Boolean
+	Enable or disable the data labels. 
+	Defaults to false.
+	*/
+	public function setSeriesDataLabelsEnabled($value){
+		$this->plotoptions_array['plotOptions']['series']['dataLabels']['enabled'] = $value;
+	}
+	
+	/*
+	color: Color
+	The text color for the data labels. 
+	Defaults to null.
+	*/
+	public function setSeriesDataLabelsColor($value){
+		$this->plotoptions_array['plotOptions']['series']['dataLabels']['color'] = $value;
+	}
+	
+	/*
+	shadow: Boolean|Object
+	The shadow of the box. Works best with borderWidth or backgroundColor. Since 2.3 the shadow can be an object configuration containing color, offsetX, offsetY, opacity and width. 
+	Defaults to false.
+	*/
+	public function setSeriesDataLabelsStyleTextShadow($value){
+		$this->plotoptions_array['plotOptions']['series']['dataLabels']['style']['textShadow'] = $value;
+	}
+	
+	
+	/*
+	pointPadding: Number
+	Padding between each column or bar, in x axis units. 
+	Defaults to 0.1.
+	*/
+	public function setColumnPointPadding($value){
+		$this->plotoptions_array['plotOptions']['column']['pointPadding'] = $value;
+	}
+	
+	/*
+	borderWidth: Number
+	The width of the border surronding each column or bar. 
+	Defaults to 1.
+	*/
+	public function setColumnBorderWidth($value){
+		$this->plotoptions_array['plotOptions']['column']['borderWidth'] = $value;
+	}
+	
 	public function getPlotOptions(){
 		if(empty($this->plotoptions_array)){
 			return array();

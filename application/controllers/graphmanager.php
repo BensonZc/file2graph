@@ -97,48 +97,6 @@ class GraphManager extends CI_Controller {
 		$this->load->view('upload_data_graph', $querydata);
 	}
 	
-	//Stacked Area Chart
-	function StackedArea(){		
-		$graphdata = $this->commonChart();
-		$this->load->view('AreaCharts/StackedArea', $graphdata);
-	}
-	
-	//Percentage Area Chart
-	function PercentageArea(){	
-		$graphdata = $this->commonChart();
-		$this->load->view('AreaCharts/PercentageArea', $graphdata);
-	}
-	
-	//Basic Bar Chart
-	function BasicBar(){	
-		$graphdata = $this->commonChart();
-		$this->load->view('ColumnAndBarCharts/BasicBar', $graphdata);
-	}
-	
-	//Basic Bar Chart
-	function StackedBar(){	
-		$graphdata = $this->commonChart();
-		$this->load->view('ColumnAndBarCharts/StackedBar', $graphdata);
-	}
-	
-	//Basic Column Chart
-	function BasicColumn(){		
-		$graphdata = $this->commonChart();
-		$this->load->view('ColumnAndBarCharts/BasicColumn', $graphdata);
-	}
-	
-	//Stacked Column Chart
-	function StackedColumn(){	
-		$graphdata = $this->commonChart();
-		$this->load->view('ColumnAndBarCharts/StackedColumn', $graphdata);
-	}
-	
-	//Stacked Percentage Column Chart
-	function StackedPercentageColumn(){
-		$graphdata = $this->commonChart();
-		$this->load->view('ColumnAndBarCharts/StackedPercentageColumn', $graphdata);
-	}
-	
 	//Pie Chart Row Sum
 	function PieChartRowSum(){	
 		$tablename = '';
