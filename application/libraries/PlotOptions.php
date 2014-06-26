@@ -128,6 +128,32 @@ class PlotOptions{
 	}
 	
 	/*
+	allowPointSelect: Boolean
+	Allow this series' points to be selected by clicking on the markers, bars or pie slices. 
+	Defaults to false.
+	*/
+	public function setSeriesAllowPointSelect($value){
+		$this->plotoptions_array['plotOptions']['series']['allowPointSelect'] = $value;
+	}
+	
+	/*
+	cursor: String
+	You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user that the points and lines can be clicked.
+	*/
+	public function setSeriesCursor($value){
+		$this->plotoptions_array['plotOptions']['series']['cursor'] = $value;
+	}
+	
+	/*
+	showInLegend: Boolean
+	Whether to display this particular series or series type in the legend. The default value is true for standalone series, false for linked series. 
+	Defaults to false.
+	*/
+	public function setSeriesShowInLegend($value){
+		$this->plotoptions_array['plotOptions']['series']['showInLegend'] = $value;
+	}
+	
+	/*
 	enabled: Boolean
 	Enable or disable the data labels. 
 	Defaults to false.

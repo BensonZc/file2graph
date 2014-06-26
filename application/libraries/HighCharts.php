@@ -8,6 +8,7 @@ require 'Legend.php';
 require 'ToolTip.php';
 require 'Series.php';
 require 'PlotOptions.php';
+require 'DrillDown.php';
 
 class HighCharts{
 	var $CI;
@@ -20,6 +21,7 @@ class HighCharts{
 	var $tooltip;
 	var $series;
 	var $plotoptions;
+	var $drilldown;
 	
 	function __construct(){
 		$this->CI =& get_instance();
@@ -33,6 +35,7 @@ class HighCharts{
 		$this->legend = new Legend();
 		$this->series = new Series();
 		$this->plotoptions = new PlotOptions();
+		$this->drilldown = new DrillDown();
 	}
 	
 	public function generate($divid){
@@ -45,9 +48,10 @@ class HighCharts{
 		$legend_array = $this->legend->getLegend();
 		$series_array = $this->series->getSeries();
 		$plotoptions_array = $this->plotoptions->getPlotOptions();
+		$drilldown_array = $this->drilldown->getDrillDown();
 		
 		$highchart = array_merge($chart_array, $title_array, $subtitle_array, $xAxis_array, $yAxis_array, 
-			$toolTip_array, $legend_array, $series_array, $plotoptions_array);
+			$toolTip_array, $legend_array, $series_array, $plotoptions_array, $drilldown_array);
 		
 		return "$('#" . $divid . "').highcharts(" . json_encode($highchart) . ")";
 	}

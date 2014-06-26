@@ -71,47 +71,13 @@ $(function () {
             });
 
             // Create the chart
-            $('#container').highcharts({
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: '<?php echo $tablename ?> Pie With Row DrillDown'
-                },
-                subtitle: {
-                    text: 'Click the slices to view the proportion of row. Source: <?php echo $tablename ?>'
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}: {point.y:.1f}%'
-                        }
-                    }
-                },
-
-                tooltip: {
-                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-                }, 
-
-                series: [{
-                    name: 'Rows Item',
-                    colorByPoint: true,
-                    data: brandsData
-                }],
-                drilldown: {
-                    series: drilldownSeries
-                }
-            })
+            <?php echo $piewithrowdrilldown ?>
 
         }
     });
 });
 </script>
 <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
-
-<!-- Data from www.netmarketshare.com. Select Browsers => Desktop share by version. Download as tsv. -->
 <pre id="tsv" style="display:none">
 <?php echo $series ?>
 </pre>

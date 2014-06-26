@@ -26,45 +26,6 @@ class InitGraphData{
 		return $returnData;
 	}
 	
-	public function initPieRowSumData($allsum, $rowsum){
-		$returnData = array();
-		$series = '';
-		
-		foreach($allsum as $allsum_item){
-			$total = $allsum_item['allsum'];
-		}
-		 
-		foreach($rowsum as $rowsum_item){
-			$series = $series . "['" . $rowsum_item['rowname'] . "', " . $rowsum_item['rowsum']/$total * 100 . "],";
-		}
-		
-		$returnData['series'] = $series;
-		
-		return $returnData;
-	}
-	
-	public function initPieColumnSumData($allsum, $columnsum, $fields){
-		$returnData = array();
-		$series = '';
-		
-		foreach($allsum as $allsum_item){
-			$total = $allsum_item['allsum'];
-		}
-		
-		foreach($columnsum as $columnsum_item){
-			for($i=0;$i<count($fields);$i++){
-				if($i==0){
-				}else{
-					$series = $series . "[' Sum of " . $fields[$i] . "', " . $columnsum_item[$fields[$i]]/$total * 100 . "],";
-				}
-			}
-		}
-		
-		$returnData['series'] = $series;
-		
-		return $returnData;
-	}
-	
 	public function initPieRowDrillDownData($allsum, $data, $fields){
 		$returnData = array();
 		$row_sum = array();
