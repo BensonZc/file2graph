@@ -26,69 +26,6 @@ class InitGraphData{
 		return $returnData;
 	}
 	
-	public function initPieRowDrillDownData($allsum, $data, $fields){
-		$returnData = array();
-		$row_sum = array();
-		$series = '';
-		$series_item = '';
-		$series_1 = '';
-		$series_2 = '';
-		$series_3 = '';
-		
-		foreach($allsum as $allsum_item){
-			$total = $allsum_item['allsum'];
-		}
-		
-		foreach($data as $data_item){
-			for($i=0;$i<count($fields);$i++){
-				if($i==0){
-					$series_1 = $data_item[$fields[0]];
-				}else{
-					$series_2 = $fields[$i];
-					$series_3 = $data_item[$fields[$i]]/$total*100 . "%";
-					
-					$series_item = $series_1 . "," . $series_2 . " " . $series_3 . "\n";
-				}
-				
-				$series = $series . $series_item;
-			}
-		}
-		
-		$returnData['series'] = $series;
-		
-		return $returnData;
-	}
-	
-	public function initPieColumnDrillDownData($allsum, $data, $fields){
-		$returnData = array();
-		$column_sum = array();
-		$series = '';
-		$series_item = '';
-		
-		foreach($allsum as $allsum_item){
-			$total = $allsum_item['allsum'];
-		}
-		
-		foreach($data as $data_item){
-			for($i=0;$i<count($fields);$i++){
-				if($i==0){
-					$series_2 = $data_item[$fields[0]];
-				}else{
-					$series_1 = $fields[$i];
-					$series_3 = $data_item[$fields[$i]]/$total*100 . "%";
-					
-					$series_item = $series_1 . "," . $series_2 . " " . $series_3 . "\n";
-				}
-				
-				$series = $series . $series_item;
-			}
-		}
-		
-		$returnData['series'] = $series;
-		
-		return $returnData;
-	}
-	
 	public function initCombinationsColumnLinePieData($fields, $data, $rowsum){
 		//Column data
 		$returnData = array();

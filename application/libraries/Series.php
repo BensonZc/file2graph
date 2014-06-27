@@ -7,7 +7,6 @@ class Series{
 	}
 	
 	/*
-	
 	$data is table data
 	*/
 	public function setSeries($data){
@@ -74,6 +73,53 @@ class Series{
 	public function setPieRowDrillDown($name, $data){
 		$this->series_array['series'][0]['name'] = $name;
 		$this->series_array['series'][0]['data'] = $data;
+	}
+	
+	/*
+	set combination chart.
+	*/
+	public function setCombination($data, $fields, $rowsum){
+		//column data
+		foreach($data as $data_key => $data_item){
+			$series_data = array();
+			$first_column = array_shift($data_item);
+			$this->series_array['series'][$data_key]['type'] = 'column';
+			$this->series_array['series'][$data_key]['name'] = $first_column;
+			
+			//delete first element.
+			foreach($data_item as $data_value){
+				array_push($series_data, floatval($data_value));
+			}
+			$this->series_array['series'][$data_key]['data'] = array_values($series_data);
+		}
+				
+		//spline data
+		$ave_data_array = array();
+		for($i=0;$i<count($fields);$i++){
+			$column_sum = '';
+			foreach($data as $data_items){
+				$column_sum = $column_sum + $data_items[$fields[$i]];
+			}
+			array_push($ave_data_array, $column_sum/count($data));
+		}
+		$this->series_array['series'][$data_key+1]['type'] = 'spline';
+		$this->series_array['series'][$data_key+1]['name'] = 'Average';
+		$this->series_array['series'][$data_key+1]['data'] = $ave_data_array;
+		
+		//pie data
+		$this->series_array['series'][$data_key+2]['type'] = 'pie';
+		$this->series_array['series'][$data_key+2]['name'] = 'Sum of Rows';
+				
+		foreach($rowsum as $rowsum_key => $rowsum_value){
+			$this->series_array['series'][$data_key+2]['data'][$rowsum_key]['name'] = $rowsum_value['rowname'];
+			$this->series_array['series'][$data_key+2]['data'][$rowsum_key]['y'] = (float)$rowsum_value['rowsum'];
+		}
+		$this->series_array['series'][$data_key+2]['center'] = array(100, 10);
+		$this->series_array['series'][$data_key+2]['size'] = 100;
+		$this->series_array['series'][$data_key+2]['showInLegend'] = false;
+		$this->series_array['series'][$data_key+2]['dataLabels']['enabled'] = false;
+		
+		//print_r(json_encode($this->series_array));
 	}
 	
 	public function getSeries(){
