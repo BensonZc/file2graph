@@ -97,48 +97,6 @@ class GraphManager extends CI_Controller {
 		$this->load->view('upload_data_graph', $querydata);
 	}
 	
-	//Combinations charts:Column,Line,Pie
-	function ColumnLineAndPie(){
-		$graphdata = array();
-		$isuserdefine = $this->input->post('isuserdefine');
-		
-		if($isuserdefine == 'true'){
-			//table name
-			$tablename = $this->input->post('tablename');
-			
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
-			
-			//table some fileds
-			$tablefields = explode(',', $filed);
-			//table some rows data sum
-			$tablerowsum = $this->commondata->get_some_row_sum($tablename, $tablefields, $rows);
-			//table data
-			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
-			$tabledata = $this->commondata->get_table_sql($sql);
-		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
-			//table fields
-			$tablefields = $this->commondata->get_table_fields($tablename);
-			//table row data sum
-			$tablerowsum = $this->commondata->get_all_row_sum($tablename, $tablefields);
-			//table all data
-			$tabledata = $this->commondata->get_all_data($tablename);
-		}
-		
-		$graphdata = $this->initgraphdata->initCombinationsColumnLinePieData($tablefields, $tabledata, $tablerowsum);
-		$graphdata['tablename'] = $tablename;
-		
-		$this->load->view('Combinations/ColumnLineAndPie', $graphdata);
-	}
-	
-	//3D Column
-	function ThreeDColumn(){
-		$graphdata = $this->commonChart();
-		$this->load->view('3DCharts/3DColumn', $graphdata);
-	}
-	
 	//3D Scatter chart
 	function ThreeDScatterChart(){
 		$graphdata = $this->common3DAndHeatChart();

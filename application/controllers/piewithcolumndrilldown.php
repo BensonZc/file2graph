@@ -81,8 +81,7 @@ class piewithcolumndrilldown extends CI_Controller {
 		$piewithrowdrilldown = str_replace("\"series\":\"drilldownSeries\"", "\"series\":drilldownSeries", $piewithrowdrilldown);
 		
 		$returnData['piewithcolumndrilldown'] = $piewithrowdrilldown;
-		
-		
+				
 		$this->load->view('PieCharts/PieWithColumnDrillDown', $returnData);
 	}
  

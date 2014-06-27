@@ -199,6 +199,14 @@ class PlotOptions{
 		$this->plotoptions_array['plotOptions']['column']['borderWidth'] = $value;
 	}
 	
+	/*depth: NumberSince 4.0
+	Depth of the columns in a 3D column chart. Requires highcharts-3d.js. 
+	Defaults to 25.
+	*/
+	public function setColumnDepth($value){
+		$this->plotoptions_array['plotOptions']['column']['depth'] = $value;
+	}
+	
 	public function getPlotOptions(){
 		if(empty($this->plotoptions_array)){
 			return array();

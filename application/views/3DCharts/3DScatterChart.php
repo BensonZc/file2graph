@@ -1,24 +1,8 @@
 <script>
 $(function () {
-	/*
-	// Give the points a 3D feel by adding a radial gradient
-    Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function (color) {
-        return {
-            radialGradient: {
-                cx: 0.4,
-                cy: 0.3,
-                r: 0.5
-            },
-            stops: [
-                [0, color],
-                [1, Highcharts.Color(color).brighten(-0.2).get('rgb')]
-            ]
-        };
-    });
-	*&/
-	*/
     // Set up the chart
     var chart = new Highcharts.Chart({
+		
         chart: {
             renderTo: 'container',
             type: 'scatter',
@@ -42,13 +26,10 @@ $(function () {
         subtitle: {
             text: 'You can click and drag the plot area to rotate in space'
         },
-		//this.userOptions.tooltip.pointFormat:'aaaaaaaaa',
 		
 		tooltip: {
 			//enabled:true,
-			
-			formatter: function(){
-			
+			formatter:function(){
 				<?php foreach ($x_array as $x_array_key => $x_array_value):?>
 					if(this.x == <?php echo $x_array_key?>){
 						this.x = <?php echo $x_array_value?>;
@@ -61,11 +42,8 @@ $(function () {
 					}
 				<?php endforeach; ?>
 				
-
 				return "<b>X</b>: "+ this.x + ",<br><b>Y</b>: "+ this.y + ",<br><b>Z</b>: " + this.point.z;
 			},
-			
-			pointFormat: '{series.name}: aaaaaaa<b>{point.x}{point.y}{point.z}</b><br/>',
 			shared: true,
         },
         yAxis: {
@@ -89,7 +67,7 @@ $(function () {
             data: [<?php echo $pointData?>] 
         }]
     });
-
+	
     // Add mouse events for rotation
     $(chart.container).bind('mousedown.hc touchstart.hc', function (e) {
         e = chart.pointer.normalize(e);
@@ -124,4 +102,4 @@ $(function () {
     
 });
 </script>
-<div id="container" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto;"></div>
+<div id="container" style=""></div>

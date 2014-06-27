@@ -25,72 +25,7 @@ class InitGraphData{
 		$returnData = $this->CI->highcharts->generate($divid);
 		return $returnData;
 	}
-	
-	public function initCombinationsColumnLinePieData($fields, $data, $rowsum){
-		//Column data
-		$returnData = array();
-		$series = '';
-		$chart_column_x = '';
-		$chart_column_y = '';
-		$chart_avg_data = '';
-		$chart_avg_line = '';
-		$chart_pie_item = '';
-		$chart_pie_data = '';
-		
-		/*
-		init X data
-		[fields] database table fields for chart
-		*/
-		for($i=0;$i<count($fields);$i++){
-			if($i==0){
-			}else{
-				$chart_column_x = $chart_column_x . "'" . $fields[$i] . "',";
-			}
-		}
-		
-		/*
-		init Y data.
-		*/
-		foreach($data as $data_items){
-			$series_value = "";
-			for($i=0;$i<count($fields);$i++){
-				if($i==0){
-					$series_name = "{ type: 'column', name: '" . $data_items[$fields[$i]] . "',";
-				}else{
-					$series_value = $series_value . $data_items[$fields[$i]] . ",";					
-				}
-				$series_data = "data: [" . $series_value . "] },";
-			}
-			$series = $series . $series_name . $series_data;
-		}
-		$chart_column_y = $series;
-		
-		$returnData['chart_column_x'] = $chart_column_x;
-		$returnData['chart_column_y'] = $chart_column_y;
-		
-		//Average line
-		for($i=1;$i<count($fields);$i++){
-			$column_sum = '';
-			foreach($data as $data_items){
-				$column_sum = $column_sum + $data_items[$fields[$i]];
-			}
-			$chart_avg_data = $chart_avg_data . $column_sum/count($data) . ",";
-		}
-		$chart_avg_line = "type:'spline', name:'Average', data: [" . $chart_avg_data . "],";
-		
-		$returnData['chart_avg_line'] = $chart_avg_line;
-		
-		//Pie Chart
-		foreach($rowsum as $rowsum_item){
-			$chart_pie_item = $chart_pie_item . "{ name:'" . $rowsum_item['rowname'] . "', y:" . $rowsum_item['rowsum'] . "},";
-		}
-		
-		$chart_pie_data = "{type:'pie', name:'Total rows', data:[" . $chart_pie_item . "],";
-		
-		$returnData['chart_pie_data'] = $chart_pie_data;
-		
-		return $returnData;
-	}
+
 	
 	public function init3DScatterData($fields, $data){
 		$returnData = array();

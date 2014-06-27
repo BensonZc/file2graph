@@ -1,51 +1,7 @@
 <script>
 $(function () {
     // Set up the chart
-    var chart = new Highcharts.Chart({
-        chart: {
-            renderTo: 'container',
-            type: 'column',
-            options3d: {
-                enabled: true,
-                alpha: 15,
-                beta: 15,
-                viewDistance: 25,
-                depth: 40
-            },
-            marginTop: 80,
-            marginRight: 40
-        },
-
-        title: {
-            text: '<?php echo $tablename ?> 3D Column'
-        },
-
-        xAxis: {
-            categories: [<?php echo $chart_x ?>]
-        },
-
-        yAxis: {
-            allowDecimals: false,
-            min: 0,
-            title: {
-                text: ''
-            }
-        },
-
-        tooltip: {
-            headerFormat: '<b>{point.key}</b><br>',
-            pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y}'
-        },
-
-        plotOptions: {
-            column: {
-                //stacking: 'normal',
-                depth: 25
-            }
-        },
-
-        series: [<?php echo $chart_y ?>]
-    });
+    <?php echo $threedcolumn ?>
        
     // Add mouse events for rotation
     $(chart.container).bind('mousedown.hc touchstart.hc', function (e) {
