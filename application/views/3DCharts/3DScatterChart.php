@@ -1,7 +1,9 @@
 <script>
 $(function () {
     // Set up the chart
-    var chart = new Highcharts.Chart({
+	<?php echo $threedscatterchart ?>
+    /*
+	var chart = new Highcharts.Chart({
 		
         chart: {
             renderTo: 'container',
@@ -67,7 +69,7 @@ $(function () {
             data: [<?php echo $pointData?>] 
         }]
     });
-	
+	*/
     // Add mouse events for rotation
     $(chart.container).bind('mousedown.hc touchstart.hc', function (e) {
         e = chart.pointer.normalize(e);
@@ -102,4 +104,4 @@ $(function () {
     
 });
 </script>
-<div id="container" style=""></div>
+<div id="container" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto;"></div>

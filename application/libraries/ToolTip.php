@@ -63,7 +63,7 @@ class ToolTip{
 		The y value.
 	*/
 	public function setFormatter($value){
-		$this->tooltip_array['tooltip']['formatter'] = $value;
+		$this->tooltip_array['tooltip']['formatter'] = "eval(" . $value . ")";
 	}
 	
 	/*

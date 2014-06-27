@@ -122,6 +122,30 @@ class Series{
 		//print_r(json_encode($this->series_array));
 	}
 	
+	/*
+	for scatter chart and heatmap chart
+	*/
+	public function setPointSeries($data, $fields){
+		$this->series_array['series'][0]['name'] = 'Point';
+		$this->series_array['series'][0]['colorByPoint'] = true;
+		
+		
+		$point_series = array();
+		
+		for($j=0;$j<count($data);$j++){
+			for($i=0;$i<count($fields);$i++){
+				$point = array();
+				$pointY = $j;
+				$pointX = $i;
+				$pointZ = (float)$data[$j][$fields[$i]];
+				array_push($point, $pointX, $pointY, $pointZ);
+				array_push($point_series, $point);
+			}
+		}
+		
+		$this->series_array['series'][0]['data'] = $point_series;
+	}
+	
 	public function getSeries(){
 		if(empty($this->series_array)){
 			return array();

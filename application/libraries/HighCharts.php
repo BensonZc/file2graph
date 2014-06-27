@@ -10,6 +10,7 @@ require 'Series.php';
 require 'PlotOptions.php';
 require 'DrillDown.php';
 require 'Label.php';
+require 'ZAxis.php';
 
 class HighCharts{
 	var $CI;
@@ -39,6 +40,7 @@ class HighCharts{
 		$this->plotoptions = new PlotOptions();
 		$this->drilldown = new DrillDown();
 		$this->label = new Label();
+		$this->zaxis = new ZAxis();
 	}
 	
 	public function generate($divid){
@@ -61,6 +63,8 @@ class HighCharts{
 	}
 	
 	public function generateWithObject(){
+		$jsExpressions = array();
+		
 		$chart_array = $this->chart->getChart();
 		$title_array = $this->title->getTitle();
 		$subtitle_array = $this->subtitle->getSubTitle();
@@ -72,11 +76,26 @@ class HighCharts{
 		$plotoptions_array = $this->plotoptions->getPlotOptions();
 		$drilldown_array = $this->drilldown->getDrillDown();
 		$label_array = $this->label->getLabel();
+		$zaxis_array = $this->zaxis->getZAxis();
 		
 		$highchart = array_merge($chart_array, $title_array, $subtitle_array, $xAxis_array, $yAxis_array, 
-			$toolTip_array, $legend_array, $series_array, $plotoptions_array, $drilldown_array, $label_array);
+			$toolTip_array, $legend_array, $series_array, $plotoptions_array, $drilldown_array, $label_array,
+			$zaxis_array);
 		
-		return "var chart = new Highcharts.Chart(" . json_encode($highchart) . ");";
+		if ($highchart instanceof HighchartJsExpr) {
+            $magicKey = "____" . count($jsExpressions) . "_" . count($jsExpressions);
+            $jsExpressions[$magicKey] = $data->getExpression();
+            return $magicKey;
+        }
+		
+		$result = json_encode($highchart);
+		
+		foreach ($jsExpressions as $key => $expr) {
+            $result = str_replace('"' . $key . '"', $expr, $result);
+        }
+        
+		
+		return "var chart = new Highcharts.Chart(" . $result . ");";
 	}
 }
 ?>

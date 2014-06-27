@@ -52,6 +52,26 @@ class Chart{
 		$this->chart_array['chart']['margin'] = $margin;
 	}
 	
+	/*
+	chart.options3d.frame
+
+	Provides the option to draw a frame around the charts by defining a bottom, front and back panel.
+	*/
+	public function setFrameBottom($size, $color){
+		$this->chart_array['chart']['frame']['bottom']['size'] = $size;
+		$this->chart_array['chart']['frame']['bottom']['color'] = $color;
+	}
+	
+	public function setFrameBack($size, $color){
+		$this->chart_array['chart']['frame']['back']['size'] = $size;
+		$this->chart_array['chart']['frame']['back']['color'] = $color;
+	}
+	
+	public function setFrameSide($size, $color){
+		$this->chart_array['chart']['frame']['side']['size'] = $size;
+		$this->chart_array['chart']['frame']['side']['color'] = $color;
+	}
+	
 	public function getChart(){
 		if(empty($this->chart_array)){
 			return array();
