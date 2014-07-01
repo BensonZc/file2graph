@@ -4,7 +4,7 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<title>Graph</title>
 
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="../../js/homejs/jquery.min.js"></script>
 		<script src="http://code.jquery.com/jquery-migrate-1.1.1.js"></script>
 		<script src="http://code.highcharts.com/highcharts.js"></script>
 		<script src="http://code.highcharts.com/highcharts-3d.js"></script>
@@ -92,7 +92,7 @@
 				<div id="maincontainer" style="width:1410px;height:400px;z-index:5;margin-top:3%">
 				</div>
 				<!--Basic Line-->
-				<script type="text/javascript"><?php echo $basicline ?></script>
+				<?php echo $basicline ?>
 			</div>
 		</div>
 	</body>

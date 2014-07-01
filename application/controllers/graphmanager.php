@@ -1,5 +1,5 @@
 <?php
-require_once './phpexcel/PHPExcel.php';
+require_once './HighChartPHP/HighChartPHP.php';
 
 class GraphManager extends CI_Controller {
  
@@ -78,6 +78,18 @@ class GraphManager extends CI_Controller {
 		$querydata['rows'] = $rows;
 		$querydata['isuserdefine'] = $is_user_define;
 		
+		$basicline = new HighChartPHP('maincontainer');
+		$basicline->title->text = $tablename . " Basic Line Chart";
+		$basicline->title->x = -20;
+		$basicline->subtitle->text = 'Source: ' . $tablename;
+		$basicline->subtitle->x = -20;
+		array_shift($tablefields);
+		$basicline->xAxis->categories = $tablefields;
+		$basicline->yAxis->title->text = '';
+		$basicline->tooltip->valueSuffix = '';
+		$basicline->series = SeriesOptions::setSeries($tabledata);
+		
+		/*
 		$this->highcharts->title->setText($tablename . " Basic Line Chart");
 		$this->highcharts->title->setX(-20);
 		$this->highcharts->subtitle->setText('Source: ' . $tablename);
@@ -91,9 +103,10 @@ class GraphManager extends CI_Controller {
 		$this->highcharts->legend->setVerticalAlign('middle');
 		$this->highcharts->legend->setBorderWidth(0);
 		$this->highcharts->series->setSeries($tabledata);
+		*/
+		$querydata['basicline'] = $basicline->buildJs();//$this->highcharts->generate('maincontainer');
 		
-		$querydata['basicline'] = $this->highcharts->generate('maincontainer');
-		
+		//$this->load->view('upload_data_graph', $querydata);
 		$this->load->view('upload_data_graph', $querydata);
 	}
 	
