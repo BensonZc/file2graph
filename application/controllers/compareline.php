@@ -1,10 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class compareline extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function Compareline(){
@@ -40,24 +41,21 @@ class compareline extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('spline');
-		$this->highcharts->title->setText($tablename . " Compare Line Chart");
-		$this->highcharts->title->setX(-20);
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
-		$this->highcharts->subtitle->setX(-20);
+		$compareline = new HighChartPHP();
+		$compareline->chart->type = 'spline';
+		$compareline->title->text = $tablename . " Compare Line Chart";
+		$compareline->title->x = -20;
+		$compareline->subtitle->text = 'Source: ' . $tablename;
+		$compareline->subtitle->x = -20;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('');
-		$this->highcharts->tooltip->setValueSuffix('');
-		$this->highcharts->tooltip->setCrossHairs(true);
-		$this->highcharts->tooltip->setShared(true);
-		$this->highcharts->legend->setLayout('vertical');
-		$this->highcharts->legend->setAlign('right');
-		$this->highcharts->legend->setVerticalAlign('middle');
-		$this->highcharts->legend->setBorderWidth(0);
-		$this->highcharts->series->setSeries($tabledata);
+		$compareline->xAxis->categories = $tablefields;
+		$compareline->yAxis->title->text = '';
+		$compareline->tooltip->valueSuffix = '';
+		$compareline->tooltip->crossHairs = true;
+		$compareline->tooltip->shared = true;
+		$compareline->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['compareline'] = $this->highcharts->generate($divid);
+		$returnData['compareline'] = $compareline;
 		
 		$this->load->view('LineCharts/CompareLine', $returnData);
 	}

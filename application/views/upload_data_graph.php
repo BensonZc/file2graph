@@ -92,7 +92,7 @@
 				<div id="maincontainer" style="width:1410px;height:400px;z-index:5;margin-top:3%">
 				</div>
 				<!--Basic Line-->
-				<?php echo $basicline ?>
+				<?php echo $basicline->buildJs() ?>
 			</div>
 		</div>
 	</body>

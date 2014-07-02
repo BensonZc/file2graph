@@ -1,7 +1,7 @@
 <script>
 $(function () {
     // Set up the chart
-    <?php echo $threedcolumn ?>
+    <?php echo $threedcolumn->buildJs(false, 'chart') ?>
        
     // Add mouse events for rotation
     $(chart.container).bind('mousedown.hc touchstart.hc', function (e) {

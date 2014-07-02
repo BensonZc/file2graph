@@ -1,10 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class basicline extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function Basicline(){
@@ -40,22 +41,19 @@ class basicline extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->title->setText($tablename . " Compare Line Chart");
-		$this->highcharts->title->setX(-20);
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
-		$this->highcharts->subtitle->setX(-20);
+		$basicline = new HighChartPHP();
+		$basicline->title->text = $tablename . " Basic Line Chart";
+		$basicline->title->x = -20;
+		$basicline->subtitle->text = 'Source: ' . $tablename;
+		$basicline->subtitle->x = -20;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('');
-		$this->highcharts->tooltip->setValueSuffix('');
-		$this->highcharts->legend->setLayout('vertical');
-		$this->highcharts->legend->setAlign('right');
-		$this->highcharts->legend->setVerticalAlign('middle');
-		$this->highcharts->legend->setBorderWidth(0);
-		$this->highcharts->series->setSeries($tabledata);
+		$basicline->xAxis->categories = $tablefields;
+		$basicline->yAxis->title->text = '';
+		$basicline->tooltip->valueSuffix = '';
+		$basicline->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['basicline'] = $this->highcharts->generate($divid);
-		
+		$returnData['basicline'] = $basicline;
+				
 		$this->load->view('LineCharts/BasicLine', $returnData);
 	}
  

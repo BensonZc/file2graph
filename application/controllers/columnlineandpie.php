@@ -1,15 +1,14 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class columnlineandpie extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function ColumnLineAndPie(){
-		$divid = 'container'; //default
-		
 		$isuserdefine = $this->input->post('isuserdefine');
 		
 		if($isuserdefine == 'true'){
@@ -38,15 +37,17 @@ class columnlineandpie extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->title->setText($tablename . " Combination chart(Column,Line,Pie)");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$columnlineandpie = new HighChartPHP();
+		$columnlineandpie->title->text = $tablename . " Combination chart(Column,Line,Pie)";
+		$columnlineandpie->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->label->setItemHTML('Total Rows');
-		$this->highcharts->label->setItemStyle('50px', '18px');
-		$this->highcharts->series->setCombination($tabledata, $tablefields, $tablerowsum);
+		$columnlineandpie->xAxis->categories = $tablefields;
+		$columnlineandpie->label->items->html = 'Total Rows';
+		$columnlineandpie->label->items->style->left = '50px';
+		$columnlineandpie->label->items->style->top = '18px';
+		$columnlineandpie->series = SeriesOptions::setCombination($tabledata, $tablefields, $tablerowsum);
 		
-		$returnData['columnlineandpie'] = $this->highcharts->generate($divid);
+		$returnData['columnlineandpie'] = $columnlineandpie;
 
 		$this->load->view('Combinations/ColumnLineAndPie', $returnData);
 	}

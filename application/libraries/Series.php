@@ -70,7 +70,7 @@ class Series{
 	/*
 	* set Pie chart with row dirlldown.
 	*/
-	public function setPieRowDrillDown($name, $data){
+	public function setPieDrillDown($name, $data){
 		$this->series_array['series'][0]['name'] = $name;
 		$this->series_array['series'][0]['data'] = $data;
 	}

@@ -62,6 +62,7 @@ $(function () {
                     drilldown: versions[name] ? name : null
                 });
             });
+			
             $.each(versions, function (key, value) {
                 drilldownSeries.push({
                     name: key,
@@ -69,15 +70,15 @@ $(function () {
                     data: value
                 });
             });
-
-            // Create the chart
-            <?php echo $piewithrowdrilldown ?>
-
+			
+			<?php echo $piewithrowdrilldown->buildJs(false) ?>
         }
     });
+	
 });
+
 </script>
 <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
 <pre id="tsv" style="display:none">
-<?php echo $series ?>
+<?php echo $seriesdata ?>
 </pre>

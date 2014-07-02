@@ -1,4 +1,6 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class stackedarea extends CI_Controller {
 	
 	function __construct(){
@@ -40,19 +42,20 @@ class stackedarea extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('area');
-		$this->highcharts->title->setText($tablename . " Stacked Area Chart");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$stackedarea = new HighChartPHP();
+		$stackedarea->chart->type = 'area';
+		$stackedarea->title->text = $tablename . " Stacked Area Chart";
+		$stackedarea->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('');
-		$this->highcharts->tooltip->setShared(true);
-		$this->highcharts->plotoptions->setAreaStacking('normal');
-		$this->highcharts->plotoptions->setAreaMarkerLineWidth(1);
-		$this->highcharts->plotoptions->setAreaMarkerLineColor('#666666');
-		$this->highcharts->series->setSeries($tabledata);
+		$stackedarea->xAxis->categories = $tablefields;
+		$stackedarea->yAxis->title->text = '';
+		$stackedarea->tooltip->shared = true;
+		$stackedarea->plotOptions->area->stacking = 'normal';
+		$stackedarea->plotOptions->area->marker->lineWidth = 1;
+		$stackedarea->plotOptions->area->marker->lineColor = '#666666';
+		$stackedarea->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['stackedarea'] = $this->highcharts->generate($divid);
+		$returnData['stackedarea'] = $stackedarea;
 		
 		$this->load->view('AreaCharts/StackedArea', $returnData);
 	}

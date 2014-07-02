@@ -1,11 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class stackedcolumn extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
-		$this->load->library('jsexpression');
 	}
 	
 	function StackedColumn(){
@@ -41,19 +41,20 @@ class stackedcolumn extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('column');
-		$this->highcharts->title->setText($tablename . " Stacked Column");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$stackedcolumn = new HighChartPHP();
+		$stackedcolumn->chart->type = 'column';
+		$stackedcolumn->title->text = $tablename . " Stacked Column";
+		$stackedcolumn->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('number');
-		$this->highcharts->plotoptions->setColumnStacking('normal');
-		$this->highcharts->plotoptions->setSeriesDataLabelsEnabled(true);
-		$this->highcharts->plotoptions->setSeriesDataLabelsColor('white');
-		$this->highcharts->plotoptions->setSeriesDataLabelsStyleTextShadow('0 0 3px black, 0 0 3px black');
-		$this->highcharts->series->setSeries($tabledata);
+		$stackedcolumn->xAxis->categories = $tablefields;
+		$stackedcolumn->yAxis->title->text = 'number';
+		$stackedcolumn->plotOptions->column->stacking = 'normal';
+		$stackedcolumn->plotOptions->series->dataLabels->enabled = true;
+		$stackedcolumn->plotOptions->series->dataLabels->color = 'white';
+		$stackedcolumn->plotOptions->series->dataLabels->style->textShadow = '0 0 3px black, 0 0 3px black';
+		$stackedcolumn->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['stackedcolumn'] = $this->highcharts->generate($divid);
+		$returnData['stackedcolumn'] = $stackedcolumn;
 		
 		$this->load->view('ColumnAndBarCharts/StackedColumn', $returnData);
 	}

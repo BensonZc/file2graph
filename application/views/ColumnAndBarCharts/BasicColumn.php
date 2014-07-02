@@ -1,2 +1,2 @@
-<script><?php echo $basiccolumn ?></script>
+<?php echo $basiccolumn->buildJs() ?>
 <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>

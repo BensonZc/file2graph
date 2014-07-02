@@ -89,24 +89,8 @@ class GraphManager extends CI_Controller {
 		$basicline->tooltip->valueSuffix = '';
 		$basicline->series = SeriesOptions::setSeries($tabledata);
 		
-		/*
-		$this->highcharts->title->setText($tablename . " Basic Line Chart");
-		$this->highcharts->title->setX(-20);
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
-		$this->highcharts->subtitle->setX(-20);
-		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('');
-		$this->highcharts->tooltip->setValueSuffix('');
-		$this->highcharts->legend->setLayout('vertical');
-		$this->highcharts->legend->setAlign('right');
-		$this->highcharts->legend->setVerticalAlign('middle');
-		$this->highcharts->legend->setBorderWidth(0);
-		$this->highcharts->series->setSeries($tabledata);
-		*/
-		$querydata['basicline'] = $basicline->buildJs();//$this->highcharts->generate('maincontainer');
+		$querydata['basicline'] = $basicline;
 		
-		//$this->load->view('upload_data_graph', $querydata);
 		$this->load->view('upload_data_graph', $querydata);
 	}
 	

@@ -1,10 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class percentagearea extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function PercentageArea(){
@@ -40,22 +41,23 @@ class percentagearea extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('area');
-		$this->highcharts->title->setText($tablename . " Stacked Area Chart");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$percentagearea = new HighChartPHP();
+		$percentagearea->chart->type = 'area';
+		$percentagearea->title->text = $tablename . " Stacked Area Chart";
+		$percentagearea->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('Percent');
-		$this->highcharts->tooltip->setPointFormat('<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f})<br/>');
-		$this->highcharts->tooltip->setShared(true);
-		$this->highcharts->plotoptions->setAreaStacking('percent');
-		$this->highcharts->plotoptions->setAreaLineColor('$ffffff');
-		$this->highcharts->plotoptions->setAreaLineWidth(1);
-		$this->highcharts->plotoptions->setAreaMarkerLineWidth(1);
-		$this->highcharts->plotoptions->setAreaMarkerLineColor('#666666');
-		$this->highcharts->series->setSeries($tabledata);
+		$percentagearea->xAxis->categories = $tablefields;
+		$percentagearea->yAxis->title->text = 'Percent';
+		$percentagearea->tooltip->pointFormat = '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f})<br/>';
+		$percentagearea->tooltip->shared = true;
+		$percentagearea->plotOptions->area->stacking = 'percent';
+		$percentagearea->plotOptions->area->lineColor = '$ffffff';
+		$percentagearea->plotOptions->area->lineWidth = 1;
+		$percentagearea->plotOptions->area->marker->lineWidth = 1;
+		$percentagearea->plotOptions->area->marker->lineColor = '#666666';
+		$percentagearea->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['percentagearea'] = $this->highcharts->generate($divid);
+		$returnData['percentagearea'] = $percentagearea;
 		
 		$this->load->view('AreaCharts/PercentageArea', $returnData);
 	}

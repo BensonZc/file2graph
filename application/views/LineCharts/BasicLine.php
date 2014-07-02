@@ -1,5 +1,5 @@
 <!-- Basic Line -->
-<script><?php echo $basicline ?></script>
+<?php echo $basicline->buildJs() ?>
 <div id="container" class="content" style="min-width:310px;height:400px;margin:0 auto">
 </div>
 <!--

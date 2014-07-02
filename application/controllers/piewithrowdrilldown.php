@@ -1,15 +1,14 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class piewithrowdrilldown extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function PieWithRowDrillDown(){
-		$divid = 'container'; //default
-		
 		$series = '';
 		$series_item = '';
 		$series_1 = '';
@@ -65,21 +64,18 @@ class piewithrowdrilldown extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('pie');
-		$this->highcharts->title->setText($tablename . " Pie With Rows DrillDown");
-		$this->highcharts->subtitle->setText('Click the slices to view the proportion of row. Source: ' . $tablename);
-		$this->highcharts->tooltip->setHeaderFormat('<span style="font-size:11px">{series.name}</span><br>');
-		$this->highcharts->tooltip->setPointFormat('{series.name}: <b>{point.percentage:.1f}%</b>');
-		$this->highcharts->plotoptions->setSeriesDataLabelsEnabled(true);
-		//$this->highcharts->plotoptions->setSeriesShowInLegend(true);
-		$this->highcharts->series->setPieRowDrillDown('Row Item', 'brandsData');
-		$this->highcharts->drilldown->setSeries('drilldownSeries');
-		$returnData['series'] = $series;
-		$piewithrowdrilldown = str_replace("\"data\":\"brandsData\"", "\"data\":brandsData", $this->highcharts->generate($divid));
-		$piewithrowdrilldown = str_replace("\"series\":\"drilldownSeries\"", "\"series\":drilldownSeries", $piewithrowdrilldown);
+		$piewithrowdrilldown = new HighChartPHP();
+		$piewithrowdrilldown->chart->type = 'pie';
+		$piewithrowdrilldown->title->text = $tablename . " Pie With Rows DrillDown";
+		$piewithrowdrilldown->subtitle->text = 'Click the slices to view the proportion of row. Source: ' . $tablename;
+		$piewithrowdrilldown->tooltip->headerFormat = '<span style="font-size:11px">{series.name}</span><br>';
+		$piewithrowdrilldown->tooltip->pointFormat = '{series.name}: <b>{point.percentage:.1f}%</b>';
+		$piewithrowdrilldown->plotOptions->series->dataLabels->enabled = true;
+		$piewithrowdrilldown->series = SeriesOptions::setPieDrillDown('Row Item', 'brandsData');
+		$piewithrowdrilldown->drilldown->series = 'drilldownSeries';
 		
+		$returnData['seriesdata'] = $series;
 		$returnData['piewithrowdrilldown'] = $piewithrowdrilldown;
-		
 		
 		$this->load->view('PieCharts/PieWithRowDrillDown', $returnData);
 	}

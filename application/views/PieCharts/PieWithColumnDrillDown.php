@@ -70,7 +70,7 @@ $(function () {
             });
 
             // Create the chart
-            <?php echo $piewithcolumndrilldown ?>
+            <?php echo $piewithcolumndrilldown->buildJs(false) ?>
 
         }
     });
@@ -78,5 +78,5 @@ $(function () {
 </script>
 <div id="container" style="min-width: 310px; max-width: 600px; height: 400px; margin: 0 auto"></div>
 <pre id="tsv" style="display:none">
-<?php echo $series ?>
+<?php echo $seriesdata ?>
 </pre>

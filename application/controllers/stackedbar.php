@@ -1,10 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class stackedbar extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function StackedBar(){
@@ -40,16 +41,17 @@ class stackedbar extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('bar');
-		$this->highcharts->title->setText($tablename . " Stacked Bar");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$stackedbar = new HighChartPHP();
+		$stackedbar->chart->type = 'bar';
+		$stackedbar->title->text = $tablename . " Stacked Bar";
+		$stackedbar->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('number');
-		$this->highcharts->plotoptions->setBarStacking('normal');
-		$this->highcharts->series->setSeries($tabledata);
+		$stackedbar->xAxis->categories = $tablefields;
+		$stackedbar->yAxis->title->text = 'number';
+		$stackedbar->plotOptions->bar->stacking = 'normal';
+		$stackedbar->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['stackedbar'] = $this->highcharts->generate($divid);
+		$returnData['stackedbar'] = $stackedbar;
 		
 		$this->load->view('ColumnAndBarCharts/StackedBar', $returnData);
 	}

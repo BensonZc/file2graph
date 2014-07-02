@@ -1,15 +1,14 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class threedcolumn extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
-	function ThreeDColumn(){
-		$divid = 'container'; //default
-		
+	function ThreeDColumn(){		
 		$tablename = $this->input->post('tablename');
 		$is_user_define = $this->input->post('isuserdefine');
 		
@@ -41,20 +40,27 @@ class threedcolumn extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('column');
-		$this->highcharts->chart->setRenderTo($divid);
-		$this->highcharts->chart->setMargin(75);
-		$this->highcharts->chart->setOptions3d(true, 15, 15, 40, 25);
-		$this->highcharts->title->setText($tablename . " 3D Column");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$threedcolumn = new HighChartPHP();
+		$threedcolumn->chart->type = 'column';
+		$threedcolumn->chart->renderTo = $divid;
+		$threedcolumn->chart->margin = 75;
+		$threedcolumn->chart->options3d = array(
+				"enabled" => true,
+				"alpha" => 15,
+				"beta" =>15,
+				"depth" => 40,
+				"viewDistance" => 25
+			);
+		$threedcolumn->title->text = $tablename . " 3D Column";
+		$threedcolumn->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->tooltip->setHeaderFormat('<b>{point.key}</b><br>');
-		$this->highcharts->tooltip->setPointFormat('<span style="color:{series.color}"></span> {series.name}: {point.y}');
-		$this->highcharts->plotoptions->setColumnDepth(25);
-		$this->highcharts->series->setSeries($tabledata);
+		$threedcolumn->xaxis->categories = $tablefields;
+		$threedcolumn->tooltip->headerFormat = '<b>{point.key}</b><br>';
+		$threedcolumn->tooltip->pointFormat = '<span style="color:{series.color}"></span> {series.name}: {point.y}';
+		$threedcolumn->plotoptions->column->depth = 25;
+		$threedcolumn->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['threedcolumn'] = $this->highcharts->generateWithObject();
+		$returnData['threedcolumn'] = $threedcolumn;
 
 		$this->load->view('3DCharts/3DColumn', $returnData);
 	}

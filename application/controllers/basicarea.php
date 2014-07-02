@@ -1,10 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class basicarea extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function BasicArea(){
@@ -40,18 +41,19 @@ class basicarea extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('area');
-		$this->highcharts->title->setText($tablename . " Basic Area Chart");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$basicarea = new HighChartPHP();
+		$basicarea->chart->type = 'area';
+		$basicarea->title->text = $tablename . " Basic Area Chart";
+		$basicarea->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('');
-		$this->highcharts->plotoptions->setAreaPointStart(0);
-		$this->highcharts->plotoptions->setAreaMarkerEnabled(false);
-		$this->highcharts->plotoptions->setAreaMarkerRadius(2);
-		$this->highcharts->series->setSeries($tabledata);
+		$basicarea->xAxis->categories = $tablefields;
+		$basicarea->yAxis->title->text = '';
+		$basicarea->plotOptions->area->pointStart = 0;
+		$basicarea->plotOptions->area->marker->enabled = false;
+		$basicarea->plotOptions->area->marker->radius = 2;
+		$basicarea->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['basicarea'] = $this->highcharts->generate($divid);
+		$returnData['basicarea'] = $basicarea;
 		
 		$this->load->view('AreaCharts/BasicArea', $returnData);
 	}

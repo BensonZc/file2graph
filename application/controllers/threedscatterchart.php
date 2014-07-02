@@ -1,12 +1,11 @@
 <?php
-require "HighchartJsExpr.php";
+require_once './HighChartPHP/HighChartPHP.php';
 
 class threedscatterchart extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	//3D Scatter chart
@@ -37,8 +36,8 @@ class threedscatterchart extends CI_Controller {
 			$tabledata = $this->commondata->get_all_data($tablename);
 		}
 		
-		foreach($tabledata as $data_item){
-			array_push($y_array, $data_item[$tablefields[0]]);
+		foreach($tabledata as $data_key => $data_item){
+			array_push($y_array, $data_item[$tablefields[0]] . '(row' . $data_key . ')');
 		}
 		
 		foreach($tabledata as $data_item){
@@ -56,38 +55,34 @@ class threedscatterchart extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setRenderTo($divid);
-		$this->highcharts->chart->setMargin(75);
-		$this->highcharts->chart->setType('scatter');
-		$this->highcharts->chart->setOptions3d(true, 10, 30, 250, 5);
-		$this->highcharts->chart->setFrameBottom(1, 'rgba(0,0,0,0.02)');
-		$this->highcharts->chart->setFrameBack(1, 'rgba(0,0,0,0.04)');
-		$this->highcharts->chart->setFrameSide(1, 'rgba(0,0,0,0.06)');
-		$this->highcharts->title->setText($tablename . ' Scatter plot chart');
-		$this->highcharts->subtitle->setText('You can click and drag the plot area to rotate in space');
+		$threedscatterchart = new HighChartPHP();
+		$threedscatterchart->chart->renderTo = $divid;
+		$threedscatterchart->chart->margin = 75;
+		$threedscatterchart->chart->type = 'scatter';
+		$threedscatterchart->chart->options3d = array(
+				"enabled" => true,
+				"alpha" => 10,
+				"beta" =>30,
+				"depth" => 250,
+				"viewDistance" => 5
+			);
+		$threedscatterchart->chart->frame->bottom = array( 'size' => 1, 'color' => 'rgba(0,0,0,0.02)');
+		$threedscatterchart->chart->frame->back = array( 'size' => 1, 'color' => 'rgba(0,0,0,0.04)');
+		$threedscatterchart->chart->frame->side = array( 'size' => 1, 'color' => 'rgba(0,0,0,0.06)');
+		$threedscatterchart->title->text = $tablename . ' Scatter plot chart';
+		$threedscatterchart->subtitle->text = 'You can click and drag the plot area to rotate in space';
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setCategories($y_array);
-		$this->highcharts->zaxis->setMin($min_temp);
-		$this->highcharts->zaxis->setMax($max_temp);
-		$this->highcharts->tooltip->setFormatter(new HighchartJsExpr("formatter:function(){
-				<?php foreach ($x_array as $x_array_key => $x_array_value):?>
-					if(this.x == <?php echo $x_array_key?>){
-						this.x = <?php echo $x_array_value?>;
-					}
-				<?php endforeach; ?>
-				
-				<?php foreach ($y_array as $y_array_key => $y_array_value):?>					
-					if(this.y == <?php echo $y_array_key?>){
-						this.y = '<?php echo $y_array_value?>';
-					}
-				<?php endforeach; ?>
-				
-				return \"<b>X</b>: \"+ this.x + \",<br><b>Y</b>: \"+ this.y + \",<br><b>Z</b>: \" + this.point.z;"));
-		$this->highcharts->series->setPointSeries($tabledata, $tablefields);
+		$threedscatterchart->xAxis->categories = $tablefields;
+		$threedscatterchart->yAxis->categories = $y_array;
+		$threedscatterchart->zAxis->min = $min_temp;
+		$threedscatterchart->zAxis->max = $max_temp;
+		$threedscatterchart->legend->enabled = false;
+		$threedscatterchart->tooltip->formatter = "function(){return 'Column: ' + this.x + '<br>Row: ' + 'row' + this.y + '<br>Value: ' + this.point.z ;}";
 		
-		$returnData['threedscatterchart'] = $this->highcharts->generateWithObject();		
+		$threedscatterchart->series = SeriesOptions::setPointSeries($tabledata, $tablefields);
 		
+		$returnData['yArray'] = $y_array;
+		$returnData['threedscatterchart'] = $threedscatterchart;		
 		
 		$this->load->view('3DCharts/3DScatterChart', $returnData);
 	}

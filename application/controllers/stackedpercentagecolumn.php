@@ -1,4 +1,6 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class stackedpercentagecolumn extends CI_Controller {
 	
 	function __construct(){
@@ -40,17 +42,18 @@ class stackedpercentagecolumn extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('column');
-		$this->highcharts->title->setText($tablename . " Stacked Percentage Column");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$stackedpercentagecolumn = new HighChartPHP();
+		$stackedpercentagecolumn->chart->type = 'column';
+		$stackedpercentagecolumn->title->text = $tablename . " Stacked Percentage Column";
+		$stackedpercentagecolumn->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('number');
-		$this->highcharts->tooltip->setPointFormat('<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>');
-		$this->highcharts->plotoptions->setSeriesStacking('percent');
-		$this->highcharts->series->setSeries($tabledata);
+		$stackedpercentagecolumn->xAxis->categories = $tablefields;
+		$stackedpercentagecolumn->yAxis->title->text = 'number';
+		$stackedpercentagecolumn->tooltip->pointFormat = '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>';
+		$stackedpercentagecolumn->plotOptions->series->stacking = 'percent';
+		$stackedpercentagecolumn->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['stackedpercentagecolumn'] = $this->highcharts->generate($divid);
+		$returnData['stackedpercentagecolumn'] = $stackedpercentagecolumn;
 		
 		$this->load->view('ColumnAndBarCharts/StackedPercentageColumn', $returnData);
 	}

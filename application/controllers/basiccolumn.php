@@ -1,10 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class basiccolumn extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function BasicColumn(){
@@ -40,19 +41,20 @@ class basiccolumn extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('column');
-		$this->highcharts->title->setText($tablename . " Basic Column");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$basiccolumn = new HighChartPHP();
+		$basiccolumn->chart->type = 'column';
+		$basiccolumn->title->text = $tablename . " Basic Column";
+		$basiccolumn->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('number');
-		$this->highcharts->tooltip->setHeaderFormat('<span style="font-size:10px">{point.key}</span><table>');
-		$this->highcharts->tooltip->setPointFormat('<tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>');
-		$this->highcharts->tooltip->setFooterFormat('</table>');
-		$this->highcharts->tooltip->setUseHTML(true);
-		$this->highcharts->series->setSeries($tabledata);
+		$basiccolumn->xAxis->categories = $tablefields;
+		$basiccolumn->yAxis->title->text = 'number';
+		$basiccolumn->tooltip->headerFormat = '<span style="font-size:10px">{point.key}</span><table>';
+		$basiccolumn->tooltip->pointFormat = '<tr><td style="color:{series.color};padding:0">{series.name}: </td><td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>';
+		$basiccolumn->tooltip->footerFormat = '</table>';
+		$basiccolumn->tooltip->useHTML = true;
+		$basiccolumn->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['basiccolumn'] = $this->highcharts->generate($divid);
+		$returnData['basiccolumn'] = $basiccolumn;
 		
 		$this->load->view('ColumnAndBarCharts/BasicColumn', $returnData);
 	}

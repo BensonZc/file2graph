@@ -1,4 +1,6 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class piechartcolumnsum extends CI_Controller {
 	
 	function __construct(){
@@ -38,18 +40,18 @@ class piechartcolumnsum extends CI_Controller {
 		}
 		
 		//set highchart property
-		
-		$this->highcharts->title->setText($tablename . " Pie Chart Column Sum");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
-		$this->highcharts->tooltip->setPointFormat('{series.name}: <b>{point.percentage:.1f}%</b>');
-		$this->highcharts->plotoptions->setSeriesAllowPointSelect(true);
-		$this->highcharts->plotoptions->setSeriesCursor('pointer');
-		$this->highcharts->plotoptions->setSeriesDataLabelsEnabled(false);
-		$this->highcharts->plotoptions->setSeriesShowInLegend(true);
+		$piechartcolumnsum = new HighChartPHP();
+		$piechartcolumnsum->title->text = $tablename . " Pie Chart Column Sum";
+		$piechartcolumnsum->subtitle->text = 'Source: ' . $tablename;
+		$piechartcolumnsum->tooltip->pointFormat = '{series.name}: <b>{point.percentage:.1f}%</b>';
+		$piechartcolumnsum->plotOptions->series->allowPointSelect = true;
+		$piechartcolumnsum->plotOptions->series->cursor = 'pointer';
+		$piechartcolumnsum->plotOptions->series->dataLabels->enabled = false;
+		$piechartcolumnsum->plotOptions->series->showInLegend = true;
 		array_shift($tablefields);
-		$this->highcharts->series->setPieColumnSumSeries($tableallsum, $tablecolumn, $tablefields);
+		$piechartcolumnsum->series = SeriesOptions::setPieColumnSumSeries($tableallsum, $tablecolumn, $tablefields);
 		
-		$returnData['piechartcolumnsum'] = $this->highcharts->generate($divid);
+		$returnData['piechartcolumnsum'] = $piechartcolumnsum;
 
 		$this->load->view('PieCharts/PieChartColumnSum', $returnData);
 	}

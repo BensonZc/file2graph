@@ -1,4 +1,6 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class piewithcolumndrilldown extends CI_Controller {
 	
 	function __construct(){
@@ -7,9 +9,7 @@ class piewithcolumndrilldown extends CI_Controller {
 		$this->load->library('highcharts');
 	}
 	
-	function PieWithColumnDrillDown(){
-		$divid = 'container'; //default
-		
+	function PieWithColumnDrillDown(){	
 		$series = '';
 		$series_item = '';
 		$series_1 = '';
@@ -67,20 +67,19 @@ class piewithcolumndrilldown extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('pie');
-		$this->highcharts->title->setText($tablename . " Pie With Column DrillDown");
-		$this->highcharts->subtitle->setText('Click the slices to view the proportion of column. Source: ' . $tablename);
-		$this->highcharts->tooltip->setHeaderFormat('<span style="font-size:11px">{series.name}</span><br>');
-		$this->highcharts->tooltip->setPointFormat('{series.name}: <b>{point.percentage:.1f}%</b>');
-		$this->highcharts->plotoptions->setSeriesDataLabelsEnabled(true);
-		//$this->highcharts->plotoptions->setSeriesShowInLegend(true);
-		$this->highcharts->series->setPieRowDrillDown('Column Item', 'brandsData');
-		$this->highcharts->drilldown->setSeries('drilldownSeries');
-		$returnData['series'] = $series;
-		$piewithrowdrilldown = str_replace("\"data\":\"brandsData\"", "\"data\":brandsData", $this->highcharts->generate($divid));
-		$piewithrowdrilldown = str_replace("\"series\":\"drilldownSeries\"", "\"series\":drilldownSeries", $piewithrowdrilldown);
+		$piewithcolumndrilldown = new HighChartPHP();
 		
-		$returnData['piewithcolumndrilldown'] = $piewithrowdrilldown;
+		$piewithcolumndrilldown->chart->type = 'pie';
+		$piewithcolumndrilldown->title->text = $tablename . " Pie With Column DrillDown";
+		$piewithcolumndrilldown->subtitle->text = 'Click the slices to view the proportion of column. Source: ' . $tablename;
+		$piewithcolumndrilldown->tooltip->headerFormat = '<span style="font-size:11px">{series.name}</span><br>';
+		$piewithcolumndrilldown->tooltip->pointFormat = '{series.name}: <b>{point.percentage:.1f}%</b>';
+		$piewithcolumndrilldown->plotOptions->series->dataLabels->enabled = true;
+		$piewithcolumndrilldown->series = SeriesOptions::setPieDrillDown('Column Item', 'brandsData');
+		$piewithcolumndrilldown->drilldown->series = 'drilldownSeries';
+		
+		$returnData['seriesdata'] = $series;
+		$returnData['piewithcolumndrilldown'] = $piewithcolumndrilldown;
 				
 		$this->load->view('PieCharts/PieWithColumnDrillDown', $returnData);
 	}

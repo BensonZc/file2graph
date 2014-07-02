@@ -1,10 +1,11 @@
 <?php
+require_once './HighChartPHP/HighChartPHP.php';
+
 class basicbar extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function BasicBar(){
@@ -40,16 +41,17 @@ class basicbar extends CI_Controller {
 		}
 		
 		//set highchart property
-		$this->highcharts->chart->setType('bar');
-		$this->highcharts->title->setText($tablename . " Basic Bar");
-		$this->highcharts->subtitle->setText('Source: ' . $tablename);
+		$basicbar = new HighChartPHP();
+		$basicbar->chart->type = 'bar';
+		$basicbar->title->text = $tablename . " Basic Bar";
+		$basicbar->subtitle->text = 'Source: ' . $tablename;
 		array_shift($tablefields);
-		$this->highcharts->xaxis->setCategories($tablefields);
-		$this->highcharts->yaxis->setTitleText('number');
-		$this->highcharts->plotoptions->setBarDataLabelsEnabled(false);
-		$this->highcharts->series->setSeries($tabledata);
+		$basicbar->xAxis->categories = $tablefields;
+		$basicbar->yAxis->title->text = 'number';
+		$basicbar->plotOptions->bar->dataLabels->enabled = false;
+		$basicbar->series = SeriesOptions::setSeries($tabledata);
 		
-		$returnData['basicbar'] = $this->highcharts->generate($divid);
+		$returnData['basicbar'] = $basicbar;
 		
 		$this->load->view('ColumnAndBarCharts/BasicBar', $returnData);
 	}
