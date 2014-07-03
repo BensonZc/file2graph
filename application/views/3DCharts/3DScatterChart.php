@@ -1,6 +1,6 @@
 <script>
 $(function () {
-    // Set up the chart
+	// Set up the chart
 	<?php echo $threedscatterchart->buildJs(false, 'chart') ?>
 
     // Add mouse events for rotation

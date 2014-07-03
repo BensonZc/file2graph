@@ -37,7 +37,7 @@ class threedscatterchart extends CI_Controller {
 		}
 		
 		foreach($tabledata as $data_key => $data_item){
-			array_push($y_array, $data_item[$tablefields[0]] . '(row' . $data_key . ')');
+			array_push($y_array, $data_item[$tablefields[0]]);
 		}
 		
 		foreach($tabledata as $data_item){
@@ -77,40 +77,13 @@ class threedscatterchart extends CI_Controller {
 		$threedscatterchart->zAxis->min = $min_temp;
 		$threedscatterchart->zAxis->max = $max_temp;
 		$threedscatterchart->legend->enabled = false;
-		$threedscatterchart->tooltip->formatter = "function(){return 'Column: ' + this.x + '<br>Row: ' + 'row' + this.y + '<br>Value: ' + this.point.z ;}";
+		$threedscatterchart->tooltip->formatter = "function (){return this.series.xAxis.categories[this.point.x]+'  '+this.series.yAxis.categories[this.point.y]+'  '+this.point.z;}";
 		
 		$threedscatterchart->series = SeriesOptions::setPointSeries($tabledata, $tablefields);
-		
-		$returnData['yArray'] = $y_array;
 		$returnData['threedscatterchart'] = $threedscatterchart;		
 		
 		$this->load->view('3DCharts/3DScatterChart', $returnData);
 	}
-	
-	function common3DAndHeatChart(){
-		
-		
-		
-		
-		$graphdata = $this->initgraphdata->init3DScatterData($tablefields, $tabledata);
-		$graphdata['tablename'] = $tablename;
-		$graphdata['js'] = "eval(function(){
-				<?php foreach ($x_array as $x_array_key => $x_array_value):?>
-					if(this.x == <?php echo $x_array_key?>){
-						this.x = <?php echo $x_array_value?>;
-					}
-				<?php endforeach; ?>
-				
-				<?php foreach ($y_array as $y_array_key => $y_array_value):?>					
-					if(this.y == <?php echo $y_array_key?>){
-						this.y = '<?php echo $y_array_value?>';
-					}
-				<?php endforeach; ?>
-				
-				return \"<b>X</b>: \"+ this.x + \",<br><b>Y</b>: \"+ this.y + \",<br><b>Z</b>: \" + this.point.z;)";
-		return $graphdata;
-	}
- 
 }
 
 ?>
