@@ -150,7 +150,7 @@ class SeriesOptions{
 	}
 	
 	/**
-	 * for scatter chart and heatmap chart
+	 * for scatter chart
 	 * 
 	 * @param table data $data
 	 * @param table fields $fields
@@ -177,6 +177,42 @@ class SeriesOptions{
 		}
 		
 		$series_array[0]['data'] = $point_series;
+		
+		return $series_array;
+	}
+	
+	/**
+	 * for heatmap chart
+	 * 
+	 * @param table data $data
+	 * @param table fields $fields
+	 * @return series array
+	 */
+	public function setHeatMapSeries($data, $fields){
+		$series_array = array();
+		
+		$series_array[0]['name'] = 'Heat Map';
+		$series_array[0]['borderWidth'] = 1;
+		
+		
+		$point_series = array();
+		
+		for($j=0;$j<count($data);$j++){
+			for($i=0;$i<count($fields);$i++){
+				$point = array();
+				$pointY = $j;
+				$pointX = $i;
+				$pointZ = (float)$data[$j][$fields[$i]];
+				array_push($point, $pointX, $pointY, $pointZ);
+				array_push($point_series, $point);
+			}
+		}
+		
+		$series_array[0]['data'] = $point_series;
+		
+		$series_array[0]['dataLabels']['enabled'] = true;
+		$series_array[0]['dataLabels']['color'] = '#333';
+		$series_array[0]['dataLabels']['style']['textShadow'] = 'none';
 		
 		return $series_array;
 	}

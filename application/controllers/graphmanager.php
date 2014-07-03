@@ -94,11 +94,7 @@ class GraphManager extends CI_Controller {
 		$this->load->view('upload_data_graph', $querydata);
 	}
 	
-	//3D Scatter chart
-	function ThreeDScatterChart(){
-		$graphdata = $this->common3DAndHeatChart();
-		$this->load->view('3DCharts/3DScatterChart', $graphdata);
-	}
+	
 	
 	function HeatMap(){
 		$graphdata = $this->common3DAndHeatChart();
@@ -133,36 +129,6 @@ class GraphManager extends CI_Controller {
 		return $graphdata;
 	}
 	
-	function commonChart(){
-		$tabledata = array();
-		$tablefields = array();
-		$isuserdefine = $this->input->post('isuserdefine');
-		$graphdata = array();
-		
-		//prepare highchart data.
-		if($isuserdefine == 'true'){
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
-			//table name
-			$tablename = $this->input->post('tablename');
-			//table fields
-			$tablefields = explode(',', $filed);
-			//table data
-			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
-			$tabledata = $this->commondata->get_table_sql($sql);
-		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
-			//table fields
-			$tablefields = $this->commondata->get_table_fields($tablename);
-			//table data
-			$tabledata = $this->commondata->get_all_data($tablename);
-		}
-		
-		$graphdata['tablename'] = $tablename;
-		$graphdata['highchart'] = $this->initgraphdata->initBasicData($tablename, $tablefields, $tabledata, 'container');
-
-		return $graphdata;
-	}
+	
 }
 ?>
