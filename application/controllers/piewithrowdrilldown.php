@@ -15,27 +15,23 @@ class piewithrowdrilldown extends CI_Controller {
 		$series_2 = '';
 		$series_3 = '';
 		
-		$tablename = '';
+		$tablename = $this->session->userdata('tablename');
 		$tablefields = array();
 		$tableallsum = array();
 		$graphdata = array();
-		$isuserdefine = $this->input->post('isuserdefine');
+		$isuserdefine = $this->session->userdata('isuserdefine');
 		
-		if($isuserdefine == 'true'){
-			//table name
-			$tablename = $this->input->post('tablename');
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+		if($isuserdefine == 'true'){			
+			$fields = $this->session->userdata('fields');
+			$rows = $this->session->userdata('rows');
 			//table some fileds data sum
-			$tablefields = explode(',', $filed);
+			$tablefields = explode(',', $fields);
 			//table all data sum
 			$tableallsum = $this->commondata->get_all_sum($tablename, $tablefields);
 			//table data
-			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
+			$sql = "select " . $fields . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
 			$tabledata = $this->commondata->get_table_sql($sql);
 		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
 			//table fields
 			$tablefields = $this->commondata->get_table_fields($tablename);
 			//table all data sum
@@ -77,6 +73,7 @@ class piewithrowdrilldown extends CI_Controller {
 		$returnData['seriesdata'] = $series;
 		$returnData['piewithrowdrilldown'] = $piewithrowdrilldown;
 		
+		$this->load->view('f2g_header');
 		$this->load->view('PieCharts/PieWithRowDrillDown', $returnData);
 	}
  

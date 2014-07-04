@@ -17,7 +17,7 @@ class HighChartPHP{
 	 */
 	private $divid;
 	
-	public function __construct($divid = 'container'){
+	public function __construct($divid = 'maincontainer'){
 		$this->divid = $divid;
 		
 	}

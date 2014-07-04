@@ -9,27 +9,24 @@ class piechartrowsum extends CI_Controller {
 	}
 	
 	function PieChartRowSum(){
-		$divid = 'container'; //default
-		$tablename = '';
+		
 		$tablefields = array();
 		$tableallsum = array();
 		$tablerowsum = array();
-		$isuserdefine = $this->input->post('isuserdefine');
+		$isuserdefine = $this->session->userdata('isuserdefine');
+		$tablename = $this->session->userdata('tablename');
 		
 		if($isuserdefine == 'true'){
-			//table name
-			$tablename = $this->input->post('tablename');
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+			
+			$fields = $this->session->userdata('fields');
+			$rows = $this->session->userdata('rows');
 			//table some fileds data sum
-			$tablefields = explode(',', $filed);
+			$tablefields = explode(',', $fields);
 			//table some data sum
 			$tableallsum = $this->commondata->get_all_sum($tablename, $tablefields);
 			//table some rows data sum
 			$tablerowsum = $this->commondata->get_some_row_sum($tablename, $tablefields, $rows);
 		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
 			//table fields
 			$tablefields = $this->commondata->get_table_fields($tablename);
 			//table all data sum
@@ -51,6 +48,7 @@ class piechartrowsum extends CI_Controller {
 		
 		$returnData['piechartrowsum'] = $piechartrowsum;
 		
+		$this->load->view('f2g_header');
 		$this->load->view('PieCharts/PieChartRowSum', $returnData);
 	}
  

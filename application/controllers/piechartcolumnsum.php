@@ -6,31 +6,25 @@ class piechartcolumnsum extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function PieChartColumnSum(){
-		$divid = 'container'; //default
-		$tablename = '';
 		$tablefields = array();
 		$tableallsum = array();
 		$tablecolumn = array();
-		$isuserdefine = $this->input->post('isuserdefine');
+		$isuserdefine = $this->session->userdata('isuserdefine');
+		$tablename = $this->session->userdata('tablename');
 		
 		if($isuserdefine == 'true'){
-			//table name
-			$tablename = $this->input->post('tablename');
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+			$fields = $this->session->userdata('fields');
+			$rows = $this->session->userdata('rows');
 			//table some fileds
-			$tablefields = explode(',', $filed);
+			$tablefields = explode(',', $fields);
 			//table some data sum
 			$tableallsum = $this->commondata->get_all_sum($tablename, $tablefields);
 			//table some column data sum
 			$tablecolumn = $this->commondata->get_all_column_sum($tablename, $tablefields, $rows);
 		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
 			//table fields
 			$tablefields = $this->commondata->get_table_fields($tablename);
 			//table all data sum
@@ -52,7 +46,8 @@ class piechartcolumnsum extends CI_Controller {
 		$piechartcolumnsum->series = SeriesOptions::setPieColumnSumSeries($tableallsum, $tablecolumn, $tablefields);
 		
 		$returnData['piechartcolumnsum'] = $piechartcolumnsum;
-
+	
+		$this->load->view('f2g_header');
 		$this->load->view('PieCharts/PieChartColumnSum', $returnData);
 	}
  

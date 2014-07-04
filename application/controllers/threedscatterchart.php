@@ -10,26 +10,23 @@ class threedscatterchart extends CI_Controller {
 	
 	//3D Scatter chart
 	function ThreeDScatterChart(){
-		$divid = 'container'; //default
+		$divid = 'maincontainer'; //default
 		
 		$y_array = array();
 		$returnData = array();
+		$tablename = $this->session->userdata('tablename');
+		$isuserdefine = $this->session->userdata('isuserdefine');
 		
-		$isuserdefine = $this->input->post('isuserdefine');
 		if($isuserdefine == 'true'){
-			$tablename = $this->input->post('tablename');
-			
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+			$fields = $this->session->userdata('fields');
+			$rows = $this->session->userdata('rows');
 			
 			//table some fileds
-			$tablefields = explode(',', $filed);
+			$tablefields = explode(',', $fields);
 			//table data
-			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
+			$sql = "select " . $fields . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
 			$tabledata = $this->commondata->get_table_sql($sql);
 		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
 			//table fields
 			$tablefields = $this->commondata->get_table_fields($tablename);
 			//table data
@@ -82,6 +79,7 @@ class threedscatterchart extends CI_Controller {
 		$threedscatterchart->series = SeriesOptions::setPointSeries($tabledata, $tablefields);
 		$returnData['threedscatterchart'] = $threedscatterchart;		
 		
+		$this->load->view('f2g_header');
 		$this->load->view('3DCharts/3DScatterChart', $returnData);
 	}
 }

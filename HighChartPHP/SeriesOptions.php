@@ -213,6 +213,7 @@ class SeriesOptions{
 		$series_array[0]['dataLabels']['enabled'] = true;
 		$series_array[0]['dataLabels']['color'] = '#333';
 		$series_array[0]['dataLabels']['style']['textShadow'] = 'none';
+		$series_array[0]['dataLabels']['style']['HcTextStroke'] = null;
 		
 		return $series_array;
 	}

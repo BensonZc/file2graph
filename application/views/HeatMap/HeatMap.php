@@ -1,2 +1,8 @@
-<?php echo $heatmap->buildJs() ?>
-<div id="container" style="height: 400px; min-width: 310px; margin: 0 auto"></div>
+				<div id="maincontainer" style="float:left;height:400px;z-index:5;width:100%;">
+				</div>
+				<!--Heat Map-->
+				<?php echo $heatmap->buildJs() ?>
+			</div>
+		</div>
+	</body>
+</html>

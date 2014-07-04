@@ -148,11 +148,13 @@ ul,li {list-style-type:none; text-transform:capitalize;}
 	float:left;
 	margin-left: 20px;
 	margin-top: 2%;
+	width:75%;
+	min-width:1176px;
 	overflow-x:auto;
 }
 
 #nav 
-{width:1410px; display:block;height:37px;z-index:10; position:absolute;}
+{width:75%; display:block;height:37px;z-index:10; position:absolute;min-width:1176px;}
 #nav .file2graph_out 
 {float:left;border-bottom:4px solid rgb(232,232,232);line-height:32px;display:block; border-right:1px solid #fff;text-align:center; color:#3174c7;background:rgb(246,246,246);}
 #nav .file2graph_out .smile 
@@ -162,14 +164,14 @@ ul,li {list-style-type:none; text-transform:capitalize;}
 #nav .file2graph 
 {margin-right:1px;padding:0 2em;}
 #nav .mainlevel 
-{background:rgb(246,246,246);float:left; border-right:1px solid #fff; width:200px;border-radius: 3px;/*IE6 only*/}
+{background:rgb(246,246,246);float:left; border-right:1px solid #fff; min-width:167px; width:14.1%;border-radius: 3px;/*IE6 only*/}
 #nav .mainlevel a 
 {color:#000; text-decoration:none; line-height:32px; display:block; text-align:center; border-bottom:4px solid rgb(232,232,232);}
 #nav .mainlevel a:hover 
 {color:#fff; text-decoration:none; background:rgb(231,231,231);border-bottom:4px solid #489EAB;}
 #nav .mainlevel ul 
-{display:none; position:absolute;}
+{display:none; position:absolute; width:14.1%;min-width:167px;}
 #nav .mainlevel li 
-{border-top:1px solid #fff; background:rgb(246,246,246); width:200px;/*IE6 only*/}
+{border-top:1px solid #fff; background:rgb(246,246,246); width:100%;/*IE6 only*/}
 .log 
 {text-align:center; color:skyblue; line-height:24px; text-transform:capitalize; margin:50px auto;}

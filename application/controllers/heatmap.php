@@ -13,21 +13,19 @@ class heatmap extends CI_Controller {
 		$y_array = array();
 		$returnData = array();
 		
-		$isuserdefine = $this->input->post('isuserdefine');
+		$tablename = $this->session->userdata('tablename');
+		$isuserdefine = $this->session->userdata('isuserdefine');
+		
 		if($isuserdefine == 'true'){
-			$tablename = $this->input->post('tablename');
-			
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+			$fields = $this->session->userdata('fields');
+			$rows = $this->session->userdata('rows');
 			
 			//table some fileds
-			$tablefields = explode(',', $filed);
+			$tablefields = explode(',', $fields);
 			//table data
-			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
+			$sql = "select " . $fields . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
 			$tabledata = $this->commondata->get_table_sql($sql);
 		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
 			//table fields
 			$tablefields = $this->commondata->get_table_fields($tablename);
 			//table data
@@ -58,12 +56,12 @@ class heatmap extends CI_Controller {
 									'verticalAlign' => 'top',
 									'y' => 25,
 									'symbolHeight' => 320);
-		$heatmap->tooltip->formatter = "function (){return this.series.xAxis.categories[this.point.x]+'  '+this.series.yAxis.categories[this.point.y]+'  '+this.point.value;}";
-		
+		$heatmap->tooltip->formatter = "function (){return this.series.xAxis.categories[this.point.x]+'  '+this.series.yAxis.categories[this.point.y]+'  '+this.point.value;}";	
 		$heatmap->series = SeriesOptions::setHeatMapSeries($tabledata, $tablefields);
-
+	
 		$returnData['heatmap'] = $heatmap;		
 		
+		$this->load->view('f2g_header');
 		$this->load->view('HeatMap/HeatMap', $returnData);
 	}
 }

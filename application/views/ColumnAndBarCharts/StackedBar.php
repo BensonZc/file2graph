@@ -1,2 +1,8 @@
-<?php echo $stackedbar->buildJs() ?>
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+				<div id="maincontainer" style="float:left;height:400px;z-index:5;width:100%;">
+				</div>
+				<!--Stacked Bar-->
+				<?php echo $stackedbar->buildJs() ?>
+			</div>
+		</div>
+	</body>
+</html>

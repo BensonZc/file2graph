@@ -9,25 +9,22 @@ class columnlineandpie extends CI_Controller {
 	}
 	
 	function ColumnLineAndPie(){
-		$isuserdefine = $this->input->post('isuserdefine');
+		//table name
+		$tablename = $this->session->userdata('tablename');
+		$isuserdefine = $this->session->userdata('isuserdefine');
 		
 		if($isuserdefine == 'true'){
-			//table name
-			$tablename = $this->input->post('tablename');
-			
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+			$fields = $this->session->userdata('fields');
+			$rows = $this->session->userdata('rows');
 			
 			//table some fileds
-			$tablefields = explode(',', $filed);
+			$tablefields = explode(',', $fields);
 			//table some rows data sum
 			$tablerowsum = $this->commondata->get_some_row_sum($tablename, $tablefields, $rows);
 			//table data
-			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
+			$sql = "select " . $fields . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
 			$tabledata = $this->commondata->get_table_sql($sql);
 		}else{
-			//table name
-			$tablename = $this->input->post('tablename');
 			//table fields
 			$tablefields = $this->commondata->get_table_fields($tablename);
 			//table row data sum
@@ -48,7 +45,8 @@ class columnlineandpie extends CI_Controller {
 		$columnlineandpie->series = SeriesOptions::setCombination($tabledata, $tablefields, $tablerowsum);
 		
 		$returnData['columnlineandpie'] = $columnlineandpie;
-
+	
+		$this->load->view('f2g_header');
 		$this->load->view('Combinations/ColumnLineAndPie', $returnData);
 	}
  

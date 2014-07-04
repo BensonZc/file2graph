@@ -25,7 +25,7 @@
 				var controller = $(this).attr('id').replace("3", "Three").toLocaleLowerCase();
 				var method = $(this).attr('id').replace("3", "Three");
 				
-				window.location.href='../' + controller + '/' + method; 
+				window.location.href='../' + controller + '/' + method;
 				
 			});
 		});
@@ -33,9 +33,6 @@
 		</script>
 	</head>
 	<body>
-		
-		<!--<div><?php echo $highchart ?></div>-->
-		
 		<div class="header">
 			<div class="header_icon">
 				<h1>
@@ -62,8 +59,20 @@
 			</div>
 			
 			<div id="graph">
+				<div style="float:left;width:75%;height:37px;">
 				<ul id="nav">
-					<?php foreach($sliderbar as $sliderbar_key => $sliderbar_value): ?>
+					<?php 
+					
+					$sliderbar = array('Line Charts' => array('Basic line','Compare line',),
+									   'Area Charts' => array('Basic area','Stacked area','Percentage area',),
+									   'Column and Bar Charts' => array('Basic bar','Stacked bar','Basic column','Stacked column','Stacked percentage column'),
+									   'Pie Charts' => array('Pie chart row sum','Pie chart column sum','Pie with row drilldown','Pie with column drilldown'),
+									   'Combinations' => array('Column Line and Pie'),
+									   '3D Charts' => array('3D Column','3D Scatter chart'),
+									   'Heat Map' => array('Heat map'),
+										);
+					
+					foreach($sliderbar as $sliderbar_key => $sliderbar_value): ?>
 						<li class="mainlevel" id="mainlevel_01"><a href="javascript:void(0);" target="_blank"><?php echo $sliderbar_key ?></a>
 							<ul id="sub_01">
 								<?php foreach($sliderbar_value as $sliderbar_item_item): ?>
@@ -76,11 +85,4 @@
 					<?php endforeach; ?>	
 					<div class="clear"></div>
 				</ul>
-				<div id="maincontainer" style="width:1410px;height:400px;z-index:5;margin-top:3%">
 				</div>
-				<!--Basic Line-->
-				<?php echo $basicline->buildJs() ?>
-			</div>
-		</div>
-	</body>
-</html>

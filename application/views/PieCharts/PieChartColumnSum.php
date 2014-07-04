@@ -1,2 +1,8 @@
-<?php echo $piechartcolumnsum->buildJs() ?>
-<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				<div id="maincontainer" style="float:left;height:400px;z-index:5;width:100%;">
+				</div>
+				<!--Pie Chart Column Sum-->
+				<?php echo $piechartcolumnsum->buildJs() ?>
+			</div>
+		</div>
+	</body>
+</html>

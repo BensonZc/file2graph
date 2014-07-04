@@ -6,32 +6,30 @@ class stackedpercentagecolumn extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('commondata');
-		$this->load->library('highcharts');
 	}
 	
 	function StackedPercentageColumn(){
 		//submit data.
-		$tablename = $this->input->post('tablename');
-		$is_user_define = $this->input->post('isuserdefine');
+		$tablename = $this->session->userdata('tablename');
+		$is_user_define = $this->session->userdata('isuserdefine');
 		
-		$divid = 'container'; //default.
 		$tabledata = array();
 		$tablefields = array();
 		
-		//filed and rows is user defined.
-		$filed = '';
+		//fields and rows is user defined.
+		$fields = '';
 		$rows = '';
 		
 		//prepare data for highchart.
 		if($is_user_define == 'true'){
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+			$fields = $this->session->userdata('fields');
+			$rows = $this->session->userdata('rows');
 			
 			//get table fields via user defined.
-			$tablefields = explode(',', $filed);
+			$tablefields = explode(',', $fields);
 			
 			//get data via sql.
-			$sql = "select " . $filed . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
+			$sql = "select " . $fields . " from " . $tablename . " where " . $tablefields[0] . " in (" . $rows . ")";
 			$tabledata = $this->commondata->get_table_sql($sql);
 		}else if($is_user_define == 'false'){
 			//get all table fields.
@@ -55,6 +53,7 @@ class stackedpercentagecolumn extends CI_Controller {
 		
 		$returnData['stackedpercentagecolumn'] = $stackedpercentagecolumn;
 		
+		$this->load->view('f2g_header');
 		$this->load->view('ColumnAndBarCharts/StackedPercentageColumn', $returnData);
 	}
  

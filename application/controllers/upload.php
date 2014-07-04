@@ -16,9 +16,7 @@ class Upload extends CI_Controller {
 
         function do_upload(){
 			$hide = $this->input->post('hidden');
-                //echo "connid " . $hide;
-				//echo "conn " . $this->session->userdata('conn');
-				
+                
 			$config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'csv|txt';
             $config['max_size'] = '0';

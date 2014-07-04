@@ -10,10 +10,9 @@ class basicbar extends CI_Controller {
 	
 	function BasicBar(){
 		//submit data.
-		$tablename = $this->input->post('tablename');
-		$is_user_define = $this->input->post('isuserdefine');
+		$tablename = $this->session->userdata('tablename');
+		$is_user_define = $this->session->userdata('isuserdefine');
 		
-		$divid = 'container'; //default.
 		$tabledata = array();
 		$tablefields = array();
 		
@@ -23,8 +22,8 @@ class basicbar extends CI_Controller {
 		
 		//prepare data for highchart.
 		if($is_user_define == 'true'){
-			$filed = $this->input->post('filed');
-			$rows = $this->input->post('rows');
+			$filed = $this->session->userdata('filed');
+			$rows = $this->session->userdata('rows');
 			
 			//get table fields via user defined.
 			$tablefields = explode(',', $filed);
@@ -53,6 +52,7 @@ class basicbar extends CI_Controller {
 		
 		$returnData['basicbar'] = $basicbar;
 		
+		$this->load->view('f2g_header');
 		$this->load->view('ColumnAndBarCharts/BasicBar', $returnData);
 	}
  

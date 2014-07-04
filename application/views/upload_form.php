@@ -4,8 +4,6 @@
     $t=mktime();
     $this->session->set_userdata('conn_id', $t);
 	$this->session->set_userdata('conn', $t);
-	//echo "connid " . $this->session->userdata('conn_id');
-	//echo "conn " . $this->session->userdata('conn');
 ?>
 <html>
 <head>

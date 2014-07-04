@@ -1,4 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+
 <html>
 	<head>
 	<meta name="generator" content="HTML Tidy for Windows (vers 24 May 2007), see www.w3.org">
@@ -84,7 +85,7 @@
 			var columns = "";
 			var rows = "";
 			var table_headdiv = $('.dataTables_scrollHead');
-			var table_thead = table_headdiv.find('th#filed');
+			var table_thead = table_headdiv.find('th#fields');
 			table_thead.each(function() {
 				if (columns == "") {
 					columns = $(this).html();
@@ -92,7 +93,7 @@
 					columns = columns + "," + $(this).html();
 				}
 			});
-			$("input[name='filed']").val(columns);
+			$("input[name='fields']").val(columns);
 
 			for (var i=0;i<table.rows('.selected').data().length;i++) {
 				if (i==0) {
@@ -146,7 +147,7 @@
 		<?php echo validation_errors(); ?>
 		<?php echo form_open('graphmanager/new_graph') ?>
 		<input type="hidden" readonly name="table_name" value="<?php echo $table_name ?>"  style="border:0px;">
-		<input type="hidden" name="filed" >
+		<input type="hidden" name="fields" >
 		<input type="hidden" name="rows" >
 		<input type="hidden" name="isuserdefine" value="false">
 		<div id="advanced_column_settings" style="display:none;">
@@ -161,7 +162,7 @@
 			<thead>
 				<tr>
 					<?php foreach($horizontal as $horizontal_item): ?>
-						<th id="filed"><?php echo $horizontal_item ?></th>
+						<th id="fields"><?php echo $horizontal_item ?></th>
 					<?php endforeach; ?>
 				</tr>
 			</thead>
