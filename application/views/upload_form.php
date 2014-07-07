@@ -280,7 +280,11 @@ $(document).ready(function() {
 					<div id="tabledemo" class="mfp-hide">
 						<div class="pop_up">
 							<div class="payment-online-form-left">
-							to be adding table
+								<div>
+									<h3>modify table data:</h3>
+									<br>
+									<img src='images/step2.png' />
+								</div>
 							</div>
 						</div>
 					</div>
@@ -288,7 +292,11 @@ $(document).ready(function() {
 					<div id="graphdemo" class="mfp-hide">
 						<div class="pop_up">
 							<div class="payment-online-form-left">
-								to be adding graph
+								<div>
+									<h3>select graph via your requirements:</h3>
+									<br>
+									<img src='images/step3.png' />
+								</div>
 							</div>
 						 </div>
 					</div>
