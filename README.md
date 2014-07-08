@@ -45,3 +45,6 @@ render graph in HTML page.
     </div>
     <!--Basic Line-->
     <?php echo $basicline->buildJs() ?>
+
+###update 14.7.8
+support xlsx type.
